@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Video {
 	public enum TipVidea {PUBLIC, UNLISTED, PRIVATE};
-	
+	//proba za git
 	private String id;
 	private String url;
 	private String naslov;
