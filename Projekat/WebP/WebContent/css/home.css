@@ -1,0 +1,132 @@
+#top{
+	background-color: white;
+	padding:30px;
+	padding-left: 60px;
+}
+
+#osoba{
+    display: inline-block;
+    background-color: #C0C0C0;
+    margin: 15px;
+    width: 16.3%;
+    height: 15vh;
+    padding: 15px;
+}
+
+#korisnickoIme a{
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+}
+
+#foloveri{
+	margin: 5px 0;
+}
+
+#zafoluj{
+    padding: 5px;
+    margin: 5px;
+}
+
+
+
+.recommended{
+	width: 90%;
+	margin: auto;
+	/*word-wrap: break-word;*/
+	background-color: white;
+}
+
+.container{
+	/*text-align: center;*/
+}
+
+#videoHome{
+	width: 15vw;
+	position: relative;
+	/*padding-bottom: 100%;*/
+	height: 15vw;
+	background-color: white;
+	display: inline-block;
+	margin: 1vw;
+	vertical-align: top;
+}
+
+#videoHome a{
+	text-decoration: none;
+	color: black;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+    line-height: 1em; /*proveriti ovaj i ispod red*/
+    max-height: 1em*2; /*fallback*/
+}
+
+.thumbnailWrapper{
+	width: 100%;
+	padding-top: 56.20%;
+	position: relative;
+}
+
+#thumbnail{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#naslov{
+	position: static;
+	font-weight:bold;
+	margin-top: 10px;
+}
+
+#user{
+	position: static;
+	display: block;
+}
+
+#views{
+	margin-top: 10px;
+	position: absolute;
+}
+
+#date{
+	margin-top: 10px;
+	position: absolute;
+	right: 0;
+}
+
+#pagination {
+    display: table;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#pagination a {
+    color: black;
+    float: left;
+    height: 4vmin;
+    width: 4vmin;
+    vertical-align: middle;
+    line-height: 4vmin;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    transition: background-color .4s;
+}
+
+#pagination a.active {
+    background-color: #a8dcf0;
+    color: white;
+    border-radius: 50%;
+}
+
+#pagination a:hover:not(.active) {
+	background-color: #ddd;
+}

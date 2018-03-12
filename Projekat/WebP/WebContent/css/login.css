@@ -1,0 +1,65 @@
+#loginForm{
+	background-color: white;
+	margin: auto;
+	padding: 3vw;
+	width: 50%;
+	height: 40vw;
+	border-radius: 50px;
+}
+#loginForm div{
+	text-align: center;
+	font-size: 2em;
+}
+
+#loginTable{
+	background-color: white;
+	margin: 50px auto;
+}
+#loginTable tr{
+	margin: 25px;
+}
+#loginTable tr td{
+	font-size: 1.5em;
+}
+#unos{
+	outline: none;
+	border: none;
+	border-bottom: 2px solid black;
+	width: 100%;
+	font-size: 1em;
+	padding: 5px;
+}
+
+#loginbtn, #registerbtn{
+	display: block;
+	border: none;
+	padding: 15px 20px;
+	margin: auto;
+	margin-top: 30px;
+}
+
+
+
+
+#registerForm{
+	background-color: white;
+	margin: auto;
+	padding: 3vw;
+	width: 50%;
+	border-radius: 50px;
+}
+#registerForm div{
+	text-align: center;
+	font-size: 2em;
+}
+
+#registerTable{
+	background-color: white;
+	margin: 50px auto;
+}
+#registerTable tr{
+	margin: 25px;
+}
+#registerTable tr td{
+	font-size: 1.5em;
+}

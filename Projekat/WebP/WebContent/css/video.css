@@ -1,0 +1,264 @@
+.video{
+	background-color: white;
+	position: relative;
+	width: calc(70% - 15px);
+	display: inline-block;
+	/*height: 432px;
+	width: 768px;*/
+}
+
+.videoWraper{
+	width: 100%;
+	padding-top: 56.20%;
+	position: relative;
+}
+
+.videoWraper iframe{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.video img{
+	width: 100%;
+}
+
+video{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#saStrane{
+	display: inline-block;
+	float: right;
+	width: 30%;
+}
+
+.details{
+	background-color: white;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	float: right;
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+#published{
+	margin: 10px 0;
+	font-size: 10pt;
+}
+
+#user, #date{
+	text-decoration: none;
+	font-size: 12pt;
+	color: black;
+}
+
+#opisVidea{
+	margin-top: 10px;
+}
+
+.comments{
+	width: calc(70% - 15px);
+	display: inline-block;
+	margin: 10px 0 0 0;
+	background-color: rgba(255, 255, 255, .3);
+}
+
+.komentar{
+	width: 100%;
+	padding: 10px 20px 10px 10px;
+	margin-bottom: 10px;
+	background-color: white;
+}
+
+.komentar #user{
+	float: left;
+}
+
+.comment{
+	font-size: 11pt;
+	width: 80%;
+	display: inline-block;
+}
+
+#dateComm{
+	display: inline-block;
+	position: static;
+	right: 0;
+	bottom: 0;
+}
+
+#like{
+	margin: 5px;
+	color: #D3D3D3;
+	display: inline-block;
+	float: right;
+	/*background-color: white;
+	border: none;*/
+}
+#like:active{
+	color: green;
+}
+#like i, #dislike i{
+	font-size: 1.25em;
+}
+
+#dislike{
+	margin: 5px;
+	color: #D3D3D3;
+	display: inline-block;
+	float: right;
+}
+#dislike:active{
+	color: red;
+}
+
+#likeRating, #dislikeRating{
+	display: inline-block;
+	float: right;
+	margin: 5px 0;
+	color: #404040;
+}
+
+#recommended{
+	width: 100%;
+	height: 60px;
+	background-color: white;
+	float: right;
+	position: relative;
+}
+#recommended p{
+	margin: 5px;
+}
+
+#pagination {
+    display: table;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#pagination a {
+    color: black;
+    float: left;
+    height: 4vmin;
+    width: 4vmin;
+    vertical-align: middle;
+    line-height: 4vmin;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    transition: background-color .4s;
+}
+
+#pagination a.active {
+    background-color: #a8dcf0;
+    color: white;
+    border-radius: 50%;
+}
+
+#pagination a:hover:not(.active) {
+	background-color: #ddd;
+}
+
+#videoHome{
+	width: 100%;
+	position: relative;
+	/*padding-bottom: 100%;*/
+	background-color: white;
+	margin-top: 10px;
+	padding-right: 10px;
+	display: inline-block;
+	vertical-align: top;
+	background-color: white;
+}
+
+#videoHome a{
+	text-decoration: none;
+	display: inline-block;
+	float: right;
+	color: black;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+}
+
+#zaThumb{
+	width: 40%;
+}
+
+.thumbnailWrapper{
+	width: 100%;
+	padding-bottom: 56.20%;
+	margin-right: 5px;
+	position: relative;
+	background-color: green;
+	float: left;
+}
+
+#thumbnail{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#naslovRecomm{
+	display: inline-block;
+	position: static;
+}
+
+#userRecomm{
+	position: static;
+	right: 0;
+}
+
+#viewsRecomm{
+	margin-top: 10px;
+	display: inline-block;
+	position: absolute;
+	bottom: 5px;
+}
+
+#dateRecomm{
+	margin-top: 10px;
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
+}
+
+
+
+@media screen and (max-width: 1000px){
+	.video{
+		width: 100%;
+	}
+
+	.details{
+		width: 100%;
+	}
+
+	.comments{
+		width: 100%
+	}
+
+	#recommended{
+		width: 100%;
+	}
+
+	div{
+		width: 100%;
+	}
+}
