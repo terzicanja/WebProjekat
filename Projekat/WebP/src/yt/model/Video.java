@@ -12,19 +12,16 @@ public class Video {
 	private TipVidea tipVidea;
 	private boolean komentariDozvoljeni;
 	private boolean likeAllowed;
+	private int numberOfLikes;
+	private int numberOfDislikes;
 	private boolean blokiran;
 	private int views;
 	private Date vremeKreiranja;
 	private Korisnik vlasnik;
 	
-	public Video() {
-		id = "";
-		url = "";
-		naslov = "";
-	}
-
 	public Video(String id, String url, String naslov, String opisVidea, TipVidea tipVidea, boolean komentariDozvoljeni,
-			boolean likeAllowed, boolean blokiran, int views, Date vremeKreiranja, Korisnik vlasnik) {
+			boolean likeAllowed, int numberOfLikes, int numberOfDislikes, boolean blokiran, int views,
+			Date vremeKreiranja, Korisnik vlasnik) {
 		super();
 		this.id = id;
 		this.url = url;
@@ -33,6 +30,8 @@ public class Video {
 		this.tipVidea = tipVidea;
 		this.komentariDozvoljeni = komentariDozvoljeni;
 		this.likeAllowed = likeAllowed;
+		this.numberOfLikes = numberOfLikes;
+		this.numberOfDislikes = numberOfDislikes;
 		this.blokiran = blokiran;
 		this.views = views;
 		this.vremeKreiranja = vremeKreiranja;
@@ -95,6 +94,22 @@ public class Video {
 		this.likeAllowed = likeAllowed;
 	}
 
+	public int getNumberOfLikes() {
+		return numberOfLikes;
+	}
+
+	public void setNumberOfLikes(int numberOfLikes) {
+		this.numberOfLikes = numberOfLikes;
+	}
+
+	public int getNumberOfDislikes() {
+		return numberOfDislikes;
+	}
+
+	public void setNumberOfDislikes(int numberOfDislikes) {
+		this.numberOfDislikes = numberOfDislikes;
+	}
+
 	public boolean isBlokiran() {
 		return blokiran;
 	}
@@ -131,9 +146,11 @@ public class Video {
 	public String toString() {
 		return "Video [id=" + id + ", url=" + url + ", naslov=" + naslov + ", opisVidea=" + opisVidea + ", tipVidea="
 				+ tipVidea + ", komentariDozvoljeni=" + komentariDozvoljeni + ", likeAllowed=" + likeAllowed
-				+ ", blokiran=" + blokiran + ", views=" + views + ", vremeKreiranja=" + vremeKreiranja + ", vlasnik="
-				+ vlasnik + "]";
+				+ ", numberOfLikes=" + numberOfLikes + ", numberOfDislikes=" + numberOfDislikes + ", blokiran="
+				+ blokiran + ", views=" + views + ", vremeKreiranja=" + vremeKreiranja + ", vlasnik=" + vlasnik + "]";
 	}
+	
+	
 	
 	
 	
