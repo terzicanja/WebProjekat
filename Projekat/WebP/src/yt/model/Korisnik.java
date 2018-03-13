@@ -20,9 +20,9 @@ public class Korisnik {
 	private int likeComment; //sta ce ovo ovde?????
 	private int dislikeComment;
 	
-	public Korisnik() {
-		username = "";
-		password = "";
+	public Korisnik(String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
 	
 	public Korisnik(String username, String password, String ime, String prezime, String email, String opisKanala,

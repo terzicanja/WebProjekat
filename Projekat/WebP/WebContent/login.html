@@ -9,6 +9,34 @@
 	<script src="js/script.js"></script>
 	<script src="js/login.js"></script>
 	<title>Login</title>
+	<script>
+	$(document).ready(function(){
+		var usernameInput = $('#usernameInput');
+		var passwordInput = $('#passwordInput');
+		var messageParagraph = $('#messageParagraph');
+		
+		$('#loginbtn').on('click', function(event){
+			var username = usernameInput.val();
+			var password = passwordInput.val();
+			console.log('username: ' + username);
+			console.log('password: ' + password);
+			
+			$.post('LoginServlet', {'username': username, 'password': password}, function(data){
+				console.log('stigao odgovor');
+				console.log(data);
+				
+				messageParagraph.text(data.message);
+				if(data.status == 'success'){
+					window.location.replace('home.html');
+				}
+			});
+			console.log('poslat zahtev');
+			
+			event.preventDefault();
+			return false;
+		});
+	});
+	</script>
 </head>
 <body>
 	<header>
@@ -37,16 +65,16 @@
 	<div id="slika">
 		<div class="container">
 			<div style="height: 88vh">
-			<form method="GET" id="loginForm" onsubmit="return validateForm()">
+			<form action="LoginServlet" method="post" id="loginForm">
 				<div>Sign in</div>
 				<table id="loginTable">
                     <tr>
                         <td style="padding: 10px;">Username:</td>
-                        <td><input type="text" id="unos" name="username" autocomplete="off"></td>
+                        <td><input type="text" id="usernameInput" name="username" autocomplete="off"></td>
                     </tr>
                     <tr>
                         <td style="padding: 10px;">Password:</td>
-                        <td><input type="password" id="unos" name="password" autocomplete="off"></td>
+                        <td><input type="password" id="passwordInput" name="password" autocomplete="off"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><button type="submit" id="loginbtn">Sign in</button></td>

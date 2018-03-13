@@ -26,11 +26,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String korisnickoIme = request.getParameter("username");
 		String lozinka = request.getParameter("password");
+		System.out.println("username getparameter: "+korisnickoIme);
+		System.out.println("pass getparameter: "+lozinka);
 		
 		String message = "Uspesna prijava!";
 		String status = "success";
 		try {
 			Korisnik korisnik = KorisnikDAO.pronadjiKorisnika(korisnickoIme);
+			System.out.println("korisnikdaooooo" + korisnik);
 			if(korisnik == null) {
 				throw new Exception("Ne postoji korisnik sa unetim podacima!");
 			}

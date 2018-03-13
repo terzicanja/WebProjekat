@@ -46,9 +46,9 @@ public class KorisnikDAO {
 				
 				
 				
-				Korisnik pronadjenKorisnik = new Korisnik();
-				pronadjenKorisnik.setUsername(korisnickoIme);
-				pronadjenKorisnik.setPassword(password);
+				Korisnik pronadjenKorisnik = new Korisnik(korisnickoIme, password);
+//				pronadjenKorisnik.setUsername(korisnickoIme);
+//				pronadjenKorisnik.setPassword(password);
 				//pronadjenKorisnik.setTipKorisnika(tipKorisnika);
 				
 				return pronadjenKorisnik;
