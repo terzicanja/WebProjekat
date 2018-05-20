@@ -12,9 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import yt.dao.KorisnikDAO;
-import yt.model.Korisnik;
-
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -32,17 +29,17 @@ public class LoginServlet extends HttpServlet {
 		String message = "Uspesna prijava!";
 		String status = "success";
 		try {
-			Korisnik korisnik = KorisnikDAO.pronadjiKorisnika(korisnickoIme);
-			System.out.println("korisnikdaooooo" + korisnik);
-			if(korisnik == null) {
-				throw new Exception("Ne postoji korisnik sa unetim podacima!");
-			}
-			if(!korisnik.getPassword().equals(lozinka)) {
-				throw new Exception("Pogresno korisnicko ime i/ili lozinka!");
-			}
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("prijavljenKorisnik", korisnik);		
+//			Korisnik korisnik = KorisnikDAO.pronadjiKorisnika(korisnickoIme);
+//			System.out.println("korisnikdaooooo" + korisnik);
+//			if(korisnik == null) {
+//				throw new Exception("Ne postoji korisnik sa unetim podacima!");
+//			}
+//			if(!korisnik.getPassword().equals(lozinka)) {
+//				throw new Exception("Pogresno korisnicko ime i/ili lozinka!");
+//			}
+//			
+//			HttpSession session = request.getSession();
+//			session.setAttribute("prijavljenKorisnik", korisnik);		
 		}catch (Exception e) {
 			message = e.getMessage();
 			status = "failure";
