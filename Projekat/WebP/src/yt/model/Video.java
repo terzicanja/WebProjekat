@@ -3,152 +3,142 @@ package yt.model;
 import java.util.Date;
 
 public class Video {
-	public enum TipVidea {PUBLIC, UNLISTED, PRIVATE};
-	//proba za git
-	private String id;
-	private String url;
-	private String naslov;
-	private String opisVidea;
-	private TipVidea tipVidea;
-	private boolean komentariDozvoljeni;
-	private boolean likeAllowed;
-	private int numberOfLikes;
-	private int numberOfDislikes;
-	private boolean blokiran;
-	private int views;
-	private Date vremeKreiranja;
-	private Korisnik vlasnik;
 	
-	public Video(String id, String url, String naslov, String opisVidea, TipVidea tipVidea, boolean komentariDozvoljeni,
-			boolean likeAllowed, int numberOfLikes, int numberOfDislikes, boolean blokiran, int views,
-			Date vremeKreiranja, Korisnik vlasnik) {
+	public enum Visibility {
+		PUBLIC, PRIVATE, UNLISTED
+	}
+	
+	private int id;
+	private String videoURL;
+	private String videoImg;
+	private String name;
+	private String description;
+	private Visibility visibility;
+	private boolean commentsAllowed;
+	private boolean blocked;
+	private boolean ratingAllowed;
+	private boolean deleted;
+	private int views;
+	private int likes;
+	private int dislikes;
+	private Date date;
+	private User owner;
+	
+	
+	public Video(int id, String videoURL, String videoImg, String name, String description, Visibility visibility,
+			boolean commentsAllowed, boolean blocked, boolean ratingAllowed, boolean deleted, int views, int likes,
+			int dislikes, Date date, User owner) {
 		super();
 		this.id = id;
-		this.url = url;
-		this.naslov = naslov;
-		this.opisVidea = opisVidea;
-		this.tipVidea = tipVidea;
-		this.komentariDozvoljeni = komentariDozvoljeni;
-		this.likeAllowed = likeAllowed;
-		this.numberOfLikes = numberOfLikes;
-		this.numberOfDislikes = numberOfDislikes;
-		this.blokiran = blokiran;
+		this.videoURL = videoURL;
+		this.videoImg = videoImg;
+		this.name = name;
+		this.description = description;
+		this.visibility = visibility;
+		this.commentsAllowed = commentsAllowed;
+		this.blocked = blocked;
+		this.ratingAllowed = ratingAllowed;
+		this.deleted = deleted;
 		this.views = views;
-		this.vremeKreiranja = vremeKreiranja;
-		this.vlasnik = vlasnik;
+		this.likes = likes;
+		this.dislikes = dislikes;
+		this.date = date;
+		this.owner = owner;
 	}
-
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getUrl() {
-		return url;
+	public String getVideoURL() {
+		return videoURL;
 	}
-
-	public void setUrl(String url) {
-		this.url = url;
+	public void setVideoURL(String videoURL) {
+		this.videoURL = videoURL;
 	}
-
-	public String getNaslov() {
-		return naslov;
+	public String getVideoImg() {
+		return videoImg;
 	}
-
-	public void setNaslov(String naslov) {
-		this.naslov = naslov;
+	public void setVideoImg(String videoImg) {
+		this.videoImg = videoImg;
 	}
-
-	public String getOpisVidea() {
-		return opisVidea;
+	public String getName() {
+		return name;
 	}
-
-	public void setOpisVidea(String opisVidea) {
-		this.opisVidea = opisVidea;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	public TipVidea getTipVidea() {
-		return tipVidea;
+	public String getDescription() {
+		return description;
 	}
-
-	public void setTipVidea(TipVidea tipVidea) {
-		this.tipVidea = tipVidea;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
-	public boolean isKomentariDozvoljeni() {
-		return komentariDozvoljeni;
+	public Visibility getVisibility() {
+		return visibility;
 	}
-
-	public void setKomentariDozvoljeni(boolean komentariDozvoljeni) {
-		this.komentariDozvoljeni = komentariDozvoljeni;
+	public void setVisibility(Visibility visibility) {
+		this.visibility = visibility;
 	}
-
-	public boolean isLikeAllowed() {
-		return likeAllowed;
+	public boolean isCommentsAllowed() {
+		return commentsAllowed;
 	}
-
-	public void setLikeAllowed(boolean likeAllowed) {
-		this.likeAllowed = likeAllowed;
+	public void setCommentsAllowed(boolean commentsAllowed) {
+		this.commentsAllowed = commentsAllowed;
 	}
-
-	public int getNumberOfLikes() {
-		return numberOfLikes;
+	public boolean isBlocked() {
+		return blocked;
 	}
-
-	public void setNumberOfLikes(int numberOfLikes) {
-		this.numberOfLikes = numberOfLikes;
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
 	}
-
-	public int getNumberOfDislikes() {
-		return numberOfDislikes;
+	public boolean isRatingAllowed() {
+		return ratingAllowed;
 	}
-
-	public void setNumberOfDislikes(int numberOfDislikes) {
-		this.numberOfDislikes = numberOfDislikes;
+	public void setRatingAllowed(boolean ratingAllowed) {
+		this.ratingAllowed = ratingAllowed;
 	}
-
-	public boolean isBlokiran() {
-		return blokiran;
+	public boolean isDeleted() {
+		return deleted;
 	}
-
-	public void setBlokiran(boolean blokiran) {
-		this.blokiran = blokiran;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
-
 	public int getViews() {
 		return views;
 	}
-
 	public void setViews(int views) {
 		this.views = views;
 	}
-
-	public Date getVremeKreiranja() {
-		return vremeKreiranja;
+	public int getLikes() {
+		return likes;
 	}
-
-	public void setVremeKreiranja(Date vremeKreiranja) {
-		this.vremeKreiranja = vremeKreiranja;
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
-
-	public Korisnik getVlasnik() {
-		return vlasnik;
+	public int getDislikes() {
+		return dislikes;
 	}
-
-	public void setVlasnik(Korisnik vlasnik) {
-		this.vlasnik = vlasnik;
+	public void setDislikes(int dislikes) {
+		this.dislikes = dislikes;
 	}
-
-	@Override
-	public String toString() {
-		return "Video [id=" + id + ", url=" + url + ", naslov=" + naslov + ", opisVidea=" + opisVidea + ", tipVidea="
-				+ tipVidea + ", komentariDozvoljeni=" + komentariDozvoljeni + ", likeAllowed=" + likeAllowed
-				+ ", numberOfLikes=" + numberOfLikes + ", numberOfDislikes=" + numberOfDislikes + ", blokiran="
-				+ blokiran + ", views=" + views + ", vremeKreiranja=" + vremeKreiranja + ", vlasnik=" + vlasnik + "]";
+	public Date getDate() {
+		return date;
 	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public User getOwner() {
+		return owner;
+	}
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+	
+	
+	
+	
 	
 	
 	
