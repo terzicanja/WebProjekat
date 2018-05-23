@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import yt.dao.UserDAO;
 import yt.dao.VideoDAO;
+import yt.model.User;
 import yt.model.Video;
 
 public class HomeServlet extends HttpServlet {
@@ -21,10 +23,11 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		List<Video> videos = VideoDAO.getAll();
-		
+		List<User> topFive = UserDAO.getMostPopular();
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("videos", videos);
+		data.put("topFive", topFive);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(data);
@@ -32,6 +35,7 @@ public class HomeServlet extends HttpServlet {
 		
 		response.setContentType("application/json");
 		response.getWriter().write(jsonData);
+		
 		
 		
 //		response.getWriter().append("Served at: ").append(request.getContextPath());

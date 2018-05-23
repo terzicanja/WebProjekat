@@ -2,23 +2,25 @@ DROP SCHEMA IF EXISTS webprojekat;
 CREATE SCHEMA webprojekat DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE webprojekat;
 
-CREATE TABLE korisnici (
+CREATE TABLE users (
+	id INT AUTO_INCREMENT,
 	username VARCHAR(10) NOT NULL, 
 	password VARCHAR(20) NOT NULL,
-    ime VARCHAR(20),
-    prezime VARCHAR(20),
+    name VARCHAR(20),
+    lastname VARCHAR(20),
     email VARCHAR(30) NOT NULL,
-    opisKanala VARCHAR(100),
-    datumRegistracije DATE NOT NULL,
-    tip ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
-    blockedUser BIT NOT NULL DEFAULT 0,
-    pratioci INT DEFAULT '0',
+    description VARCHAR(100),
+    registrationDate DATE NOT NULL,
+    role ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
+    blocked BIT NOT NULL DEFAULT 0,
+    deleted BIT NOT NULL DEFAULT 0,
+    subsNumber INT DEFAULT '0',
     likeVideo INT DEFAULT '0',
     dislikeVideo INT DEFAULT '0',
     likeComment INT DEFAULT '0',
     dislikeComment INT DEFAULT '0',
 	 
-    PRIMARY KEY(username)
+    PRIMARY KEY(id)
 );
 
 
@@ -49,13 +51,39 @@ INSERT INTO videos (name, videoURL, videoImg, description, visibility) VALUES
 	('Ryo Fukui - Scenery 1976 (FULL ALBUM)', 'https://www.youtube.com/embed/Hrr3dp7zRQY', 'https://img.youtube.com/vi/Hrr3dp7zRQY/0.jpg', '', 'PRIVATE'),
 	('The Doors - L. A. Woman', 'https://www.youtube.com/embed/JskztPPSJwY', 'https://img.youtube.com/vi/JskztPPSJwY/0.jpg', '', 'PUBLIC'),
 	('Wu-Tang Clan - Forever FULL ALBUM', 'https://www.youtube.com/embed/5CzsXvAZ6R4', 'https://img.youtube.com/vi/5CzsXvAZ6R4/0.jpg', '', 'PUBLIC'),
-	('Bob Marley - I Shot The Sheriff', 'https://www.youtube.com/embed/2XiYUYcpsT4', 'https://img.youtube.com/vi/2XiYUYcpsT4/0.jpg', '', 'PUBLIC'),
-	('Motorhead - Ace Of Spades', 'https://www.youtube.com/embed/vcf7DnHi54g', 'https://img.youtube.com/vi/vcf7DnHi54g/0.jpg', '*NOTE* its for entertainment purposes only', 'UNLISTED'),
-	('Marko Nastic - Smekerica Kulijana', 'https://www.youtube.com/embed/gM-QEcuDY8I', 'https://img.youtube.com/vi/gM-QEcuDY8I/0.jpg', '', 'PUBLIC'),
-	('Carl Cox - Fantasee', 'https://www.youtube.com/embed/-Ndw3lp0D7E', 'https://img.youtube.com/vi/-Ndw3lp0D7E/0.jpg', 'Carl Cox - Fantasee 
-Written and produced by Carl Cox, Davide Carbone and Josh Abrahams ', 'PUBLIC');
+	('Bob Marley - I Shot The Sheriff', 'https://www.youtube.com/embed/2XiYUYcpsT4', 'https://img.youtube.com/vi/2XiYUYcpsT4/0.jpg', '', 'PUBLIC');
 
 
 
-INSERT INTO korisnici (username, password, ime, prezime, email, datumRegistracije, tip) VALUES ('a', 'a', 'aa', 'aa', 'a@mail', '1.1.2000', 'ADMIN');
-INSERT INTO korisnici (username, password, ime, prezime, email, datumRegistracije, tip) VALUES ('b', 'b', 'bb', 'bb', 'a@mail', '1.1.2000', 'USER');
+INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (1, 'a', 'a', 'aa', 'aa', 'a@mail', '1.1.2000', 'ADMIN', 22);
+INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (2, 'b', 'b', 'bb', 'bb', 'a@mail', '1.1.2000', 'USER', 11);
+INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (3, 'c', 'c', 'cc', 'cc', 'a@mail', '1.1.2000', 'USER', 33);
+INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (4, 'd', 'd', 'dd', 'dd', 'a@mail', '1.1.2000', 'USER', 15);
+INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (5, 'e', 'e', 'ee', 'ee', 'a@mail', '1.1.2000', 'USER', 43);
+INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (6, 'f', 'f', 'ff', 'ff', 'a@mail', '1.1.2000', 'USER', 7);
+INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (7, 'g', 'g', 'gg', 'gg', 'a@mail', '1.1.2000', 'USER', 20);
+
+
+CREATE TABLE subs(
+	subscriber VARCHAR(10),
+	subsribed_to VARCHAR(10),
+	
+	FOREIGN KEY (subscriber) REFERENCES users(id) ON DELETE RESTRICT,
+	FOREIGN KEY (subsribed_to) REFERENCES users(id) ON DELETE RESTRICT
+);
+
+
+INSERT INTO subs(subscriber, subsribed_to)VALUES(1, 2);
+INSERT INTO subs(subscriber, subsribed_to)VALUES(3, 2);
+INSERT INTO subs(subscriber, subsribed_to)VALUES(7, 2);
+INSERT INTO subs(subscriber, subsribed_to)VALUES(2, 1);
+INSERT INTO subs(subscriber, subsribed_to)VALUES(6, 1);
+INSERT INTO subs(subscriber, subsribed_to)VALUES(5, 6);
+INSERT INTO subs(subscriber, subsribed_to)VALUES(1, 7);
+
+
+
+
+
+
+

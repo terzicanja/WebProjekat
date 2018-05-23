@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import yt.dao.UserDAO;
+import yt.model.User;
+
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -29,6 +32,14 @@ public class LoginServlet extends HttpServlet {
 		String message = "Uspesna prijava!";
 		String status = "success";
 		try {
+			User user = UserDAO.get(korisnickoIme);
+			
+			if(user == null) {
+				throw new Exception("Ne postoji korisnik sa unetim podacima!");
+			}
+			if(!user.getPassword().equals(lozinka)) {
+				throw new Exception("Pogresno korisnicko ime i/ili lozinka!");
+			}
 //			Korisnik korisnik = KorisnikDAO.pronadjiKorisnika(korisnickoIme);
 //			System.out.println("korisnikdaooooo" + korisnik);
 //			if(korisnik == null) {
@@ -38,8 +49,8 @@ public class LoginServlet extends HttpServlet {
 //				throw new Exception("Pogresno korisnicko ime i/ili lozinka!");
 //			}
 //			
-//			HttpSession session = request.getSession();
-//			session.setAttribute("prijavljenKorisnik", korisnik);		
+			HttpSession session = request.getSession();
+			session.setAttribute("loggedIn", user);		
 		}catch (Exception e) {
 			message = e.getMessage();
 			status = "failure";

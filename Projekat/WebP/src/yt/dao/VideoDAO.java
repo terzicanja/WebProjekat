@@ -13,14 +13,16 @@ import yt.model.Video.Visibility;
 public class VideoDAO {
 	
 	public static ArrayList<Video> getAll() {
+//		ConnectionManager.open();
 		Connection conn = ConnectionManager.getConnection();
 		ArrayList<Video> videos = new ArrayList<Video>();
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT * FROM videos WHERE deleted = 0";
+			String query = "SELECT * FROM videos WHERE deleted = ?";
 			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, false);
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				int id = rset.getInt("id");

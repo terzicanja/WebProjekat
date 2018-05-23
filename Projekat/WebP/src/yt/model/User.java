@@ -9,6 +9,7 @@ public class User {
 		USER, ADMIN
 	}
 	
+	private int id;
 	private String username;
 	private String password;
 	private String name;
@@ -19,13 +20,21 @@ public class User {
 	private Role role;
 	private boolean blocked;
 	private boolean deleted;
+	private int subsNumber;
 	private ArrayList<User> subscribers;
 	private ArrayList<Rating> videoLikes;
 	private ArrayList<Rating> commentLikes;
-	public User(String username, String password, String name, String lastname, String email, String description,
-			Date registrationDate, Role role, boolean blocked, boolean deleted, ArrayList<User> subscribers,
-			ArrayList<Rating> videoLikes, ArrayList<Rating> commentLikes) {
+	
+	
+	
+	
+	
+	
+	public User(int id, String username, String password, String name, String lastname, String email,
+			String description, Date registrationDate, Role role, boolean blocked, boolean deleted, int subsNumber,
+			ArrayList<User> subscribers, ArrayList<Rating> videoLikes, ArrayList<Rating> commentLikes) {
 		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.name = name;
@@ -36,9 +45,16 @@ public class User {
 		this.role = role;
 		this.blocked = blocked;
 		this.deleted = deleted;
+		this.subsNumber = subsNumber;
 		this.subscribers = subscribers;
 		this.videoLikes = videoLikes;
 		this.commentLikes = commentLikes;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getUsername() {
 		return username;
@@ -117,6 +133,12 @@ public class User {
 	}
 	public void setCommentLikes(ArrayList<Rating> commentLikes) {
 		this.commentLikes = commentLikes;
+	}
+	public int getSubsNumber() {
+		return subsNumber;
+	}
+	public void setSubsNumber(int subsNumber) {
+		this.subsNumber = subsNumber;
 	}
 	
 	

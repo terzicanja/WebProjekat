@@ -23,6 +23,7 @@ public class ConnectionManager {
 	}
 	
 	public static Connection getConnection() {
+		open();
 		return connection;
 	}
 	

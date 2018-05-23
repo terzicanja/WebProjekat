@@ -4,7 +4,7 @@ $(document).ready(function(){
 	$.get('HomeServlet', function(data){
 		console.log(data);
 		for(v in data.videos){
-			$('.recommended').appens('<div id="videoHome">'+
+			$('.recommended').append('<div id="videoHome">'+
 					'<div class="thumbnailWrapper">'+
 						'<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>'+
 					'</div>'+
@@ -14,7 +14,14 @@ $(document).ready(function(){
 					'<span id="date">06.02.2018.</span>'+
 				'</div>')
 		}
+		
+		for(u in data.topFive){
+			$('#top').append('<div id="osoba"><div id="korisnickoIme">'+
+					'<a href="profile.html">' + data.topFive[u].username + '</a></div>'+
+					'<div id="foloveri">'+ data.topFive[u].subsNumber +' followers</div><button id="zafoluj">Follow</button></div>');
+		}
 	});
+	
 	
 	
 	
