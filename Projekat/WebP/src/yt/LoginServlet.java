@@ -19,7 +19,6 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -40,17 +39,9 @@ public class LoginServlet extends HttpServlet {
 			if(!user.getPassword().equals(lozinka)) {
 				throw new Exception("Pogresno korisnicko ime i/ili lozinka!");
 			}
-//			Korisnik korisnik = KorisnikDAO.pronadjiKorisnika(korisnickoIme);
-//			System.out.println("korisnikdaooooo" + korisnik);
-//			if(korisnik == null) {
-//				throw new Exception("Ne postoji korisnik sa unetim podacima!");
-//			}
-//			if(!korisnik.getPassword().equals(lozinka)) {
-//				throw new Exception("Pogresno korisnicko ime i/ili lozinka!");
-//			}
-//			
+			
 			HttpSession session = request.getSession();
-			session.setAttribute("loggedIn", user);		
+			session.setAttribute("loggedInUser", user);		
 		}catch (Exception e) {
 			message = e.getMessage();
 			status = "failure";
@@ -67,43 +58,6 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.getWriter().write(jsonData);
 		
-		
-		
-		
-		
-		
-		
-		/*
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String message = "Uspesna prijava";
-		
-		System.out.println("pre try");
-		String status = "success";
-		try {
-			Korisnik korisnik = KorisnikDAO.get(username);
-			System.out.println(korisnik.getUsername());
-
-			if (korisnik == null) throw new Exception("Neispravno korisnicko ime ili lozinka");
-			if (!korisnik.getPassword().equals(password)) throw new Exception("neeee");
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("loggedInUser", korisnik);
-		} catch (Exception ex) {
-			message = ex.getMessage();
-			status = "failure";
-		}
-		
-		Map<String, Object> data = new HashMap<>();
-		data.put("message", message);
-		data.put("status", status);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonData = mapper.writeValueAsString(data);
-		System.out.println(jsonData);
-		
-		response.setContentType("application/json");
-		response.getWriter().write(jsonData);*/
 	}
 
 }

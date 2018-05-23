@@ -1,5 +1,37 @@
 $(document).ready(function(){
 	var current;
+	
+	
+	$.get('VideoServlet', function(data){
+		console.log(data.video);
+		$("#myVideo").attr('src', data.video.videoURL);
+	});
+	
+	$.get('LoggedInServlet', function(data) {
+//		eventAuth = data.auth;
+		
+		var loggedInUser = data.loggedInUser;
+		var status = data.status;
+		
+		if (status == "loggedIn"){
+			if(loggedInUser.role == "ADMIN"){
+				$('#sign').append('<a href="#" id="profile">' + loggedInUser.username + '</a> <span>/</span> <a href="admin.html" id="profile">All users</a>'+
+				'<a href="#" id="profile">Edit profile</a> <span>/</span> <a href="LogoutServlet" id="signout">Sign out</a>');
+			} else {
+				$('#sign').append('<a href="#" id="profile">' + loggedInUser.username + '</a> <span>/</span> '+
+				'<a href="#" id="profile">Edit profile</a> <span>/</span> <a href="LogoutServlet" id="signout">Sign out</a>');
+			}
+			
+		} else {
+			$('#sign').append('<a href="register.html" id="register">Register</a><span>/</span><a href="login.html" id="signin">Sign in</a>');
+		}
+		
+		
+	});
+	
+	
+	
+	
 /*
 	var pageSize = 10;
 	var koliko = $(".komentar").length;

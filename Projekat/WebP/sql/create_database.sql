@@ -65,8 +65,8 @@ INSERT INTO users (id, username, password, name, lastname, email, registrationDa
 
 
 CREATE TABLE subs(
-	subscriber VARCHAR(10),
-	subsribed_to VARCHAR(10),
+	subscriber INT,
+	subsribed_to INT,
 	
 	FOREIGN KEY (subscriber) REFERENCES users(id) ON DELETE RESTRICT,
 	FOREIGN KEY (subsribed_to) REFERENCES users(id) ON DELETE RESTRICT

@@ -24,4 +24,34 @@
     <servlet-name>HomeServlet</servlet-name>
     <url-pattern>/HomeServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoggedInServlet</display-name>
+    <servlet-name>LoggedInServlet</servlet-name>
+    <servlet-class>yt.LoggedInServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoggedInServlet</servlet-name>
+    <url-pattern>/LoggedInServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>yt.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VideoServlet</display-name>
+    <servlet-name>VideoServlet</servlet-name>
+    <servlet-class>yt.VideoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VideoServlet</servlet-name>
+    <url-pattern>/VideoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

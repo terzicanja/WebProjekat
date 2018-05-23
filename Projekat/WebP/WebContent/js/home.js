@@ -8,9 +8,9 @@ $(document).ready(function(){
 					'<div class="thumbnailWrapper">'+
 						'<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>'+
 					'</div>'+
-					'<a href="video.html" id="naslov">' + data.videos[v].name + '</a>'+
+					'<a href="video.html?id='+ data.videos[v].id +'" id="naslov">' + data.videos[v].name + '</a>'+
 					'<a href="profile.html" id="user">pero</a>'+
-					'<span id="views">1000 views</span>'+
+					'<span id="views">'+ data.videos[v].views +'</span>'+
 					'<span id="date">06.02.2018.</span>'+
 				'</div>')
 		}
