@@ -8,6 +8,7 @@
 	<!--<link rel="stylesheet" type="text/css" href="login.css">-->
 	<script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/script.js"></script>
+	<script src="js/admin.js"></script>
 	<!--<script src="js/login.js"></script>-->
 	<title>Admin</title>
 </head>
@@ -38,7 +39,8 @@
 
 		<div class="container">
 			
-			<table style="width: 88%;margin: auto;">
+			<table id="users" style="width: 88%;margin: auto;">
+			<tbody></tbody>
 				<tr>
 					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
 						<a href="#">ivani</a>
@@ -119,35 +121,15 @@
 						<p>admin</p>
 					</div></td>
 				</tr>
-				<tr>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-				</tr>
 			</table>
 		<script>
 			//$('#delete').click(function(e){
 			//	confirm('Da li ste sigurni da zelite da obrisete korisnika?');
 			//});
 
-			function potvrda(){
-				confirm('Da li ste sigurni da zelite da obrisete korisnika?');
-			}
+			//function potvrda(){
+			//	confirm('Da li ste sigurni da zelite da obrisete korisnika?');
+			//}
 		</script>
 		</div>
 	</div>

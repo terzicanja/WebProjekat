@@ -20,7 +20,7 @@ public class UserDAO {
 		ResultSet rset = null;
 
 		try {
-			String query = "SELECT * FROM users WHERE deleted = 0";
+			String query = "SELECT * FROM users";
 			pstmt = conn.prepareStatement(query);
 			// pstmt.setBoolean(1, false);
 			rset = pstmt.executeQuery();
@@ -41,8 +41,8 @@ public class UserDAO {
 
 				User user = new User(id, korisnicko, password, name, lastname, email, description, registrationDate, role,
 						blocked, deleted, subsNumber, null, null, null);
-				pstmt.close();
-				rset.close();
+//				pstmt.close();
+//				rset.close();
 
 				users.add(user);
 			}
