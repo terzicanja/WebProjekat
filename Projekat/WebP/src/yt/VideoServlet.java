@@ -1,6 +1,7 @@
 package yt;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import yt.dao.CommentDAO;
 import yt.dao.VideoDAO;
+import yt.model.Comment;
 import yt.model.User;
 import yt.model.Video;
 
@@ -31,6 +34,7 @@ public class VideoServlet extends HttpServlet {
 //		String load = request.getParameter("load");
 
 		Video video = VideoDAO.getVideo(id);
+		ArrayList<Comment> comments = CommentDAO.getAll(id);
 //		if (load != null) {
 //			long currentViews = video.getViews();
 //			video.setViews(currentViews + 1);
@@ -39,6 +43,7 @@ public class VideoServlet extends HttpServlet {
 
 		Map<String, Object> data = new HashMap<>();
 		data.put("video", video);
+		data.put("comments", comments);
 		data.put("loggedInUser", loggedInUser);
 
 		ObjectMapper mapper = new ObjectMapper();

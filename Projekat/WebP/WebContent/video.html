@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/stil.css">
 	<link rel="stylesheet" type="text/css" href="css/video.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -39,17 +40,17 @@
 		<div class="container">
 			<div class="video">
 				<div class="videoWraper">
-					<iframe id="myVideo" width="854" height="480" src="https://www.youtube.com/embed/bi6rKIYYA20?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<iframe id="myVideo" width="854" height="480" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
 			</div>
 
 			<span id="saStrane">
 			<div class="details">
 				<h1>100 Years of Kitten Beauty in 60 Seconds</h1>
-				<div id="published">Published on <span id="date">10.02.2016.</span> by <a href="profile.html" id="user"><b>username</b></a></div>
+				<!-- <div id="published">Published on <span id="date">10.02.2016.</span> by <a href="profile.html" id="user"><b>username</b></a></div> -->
 				<span id="views">1000 views</span>
-				<a href="#" id="like"><i class="material-icons">thumb_up</i></a>
-				<a href="#" id="dislike"><i class="material-icons">thumb_down</i></a>
+				<span id="brojLajkova">34</span><a href="#" id="like"><i class="material-icons">thumb_up</i></a>
+				<a href="#" id="dislike"><i class="material-icons">thumb_down</i></a><span id="brojDislajkova">12</span>
 				<p id="opisVidea">Also, every time you leave a comment, a kitten happily purrs itself to sleep.  Let us know what you like, or even love, in the comments below.  We want to hear from you! Let us know what you like, or even love, in the comments below. We want to hear every time you leave a comment, a kitten happily purrs itself to sleep.</p>
 				<button id="stop">Stop</button>
 				<button id="pause">Pause</button>
@@ -116,7 +117,7 @@
 			</span>
 			<div class="comments">
 
-				<form>
+				<form id="komPoStr">
 					Komentara po strani: 
 					<select id="selectBroj" onchange="komentari()">
 						<option value="10">10</option>
@@ -186,7 +187,10 @@
 	}
 
 	function komentari(){
-		brKomentara(1);
+		//brKomentara(1);
+		
+		
+		
 		//$('.komentar').remove();
 		//document.getElementById('comments').innerHTML = "";
 		//brKomentara();
@@ -216,7 +220,7 @@
 				var newDiv = $('<div class="komentar"><a href="profile.html" id="user"><b>' + user +
 					'</b></a><div id="dislikeRating">8</div><a href="#" id="dislike"><i class="material-icons">thumb_down</i></a><a href="#" id="like"><i class="material-icons">thumb_up</i></a><div id="likeRating">23</div><br><div class="comment">' +kom+ 
 					'</div><span id="dateComm">10.02.2016.</span></div>');
-				$('#pagination').before(newDiv);
+				//$('#pagination').before(newDiv);
 				//}
 			}
 		},

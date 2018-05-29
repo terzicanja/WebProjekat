@@ -26,7 +26,7 @@ CREATE TABLE users (
 
 CREATE TABLE videos (
 	id INT AUTO_INCREMENT,
-	name VARCHAR(50) NOT NULL,
+	name VARCHAR(100) NOT NULL,
 	videoURL VARCHAR(100) NOT NULL,
 	videoImg VARCHAR(100) NOT NULL,
 	description VARCHAR(1000),
@@ -39,20 +39,9 @@ CREATE TABLE videos (
 	likes INT NOT NULL DEFAULT 0,
 	dislikes INT NOT NULL DEFAULT 0,
 	dateCreated DATETIME DEFAULT CURRENT_TIMESTAMP,
---	user_id INT NOT NULL,
-	PRIMARY KEY (id));
---	FOREIGN KEY (user_id) REFERENCES users(id)
-
-
-
-INSERT INTO videos (name, videoURL, videoImg, description, visibility) VALUES 
-	('Marshall Jefferson - Floating', 'https://www.youtube.com/embed/EGuiXTUQeH4', 'https://img.youtube.com/vi/EGuiXTUQeH4/0.jpg', '', 'PUBLIC'),
-	('Dave Brubeck - Take Five', 'https://www.youtube.com/embed/vmDDOFXSgAs', 'https://img.youtube.com/vi/vmDDOFXSgAs/0.jpg', '', 'UNLISTED'),
-	('Ryo Fukui - Scenery 1976 (FULL ALBUM)', 'https://www.youtube.com/embed/Hrr3dp7zRQY', 'https://img.youtube.com/vi/Hrr3dp7zRQY/0.jpg', '', 'PRIVATE'),
-	('The Doors - L. A. Woman', 'https://www.youtube.com/embed/JskztPPSJwY', 'https://img.youtube.com/vi/JskztPPSJwY/0.jpg', '', 'PUBLIC'),
-	('Wu-Tang Clan - Forever FULL ALBUM', 'https://www.youtube.com/embed/5CzsXvAZ6R4', 'https://img.youtube.com/vi/5CzsXvAZ6R4/0.jpg', '', 'PUBLIC'),
-	('Bob Marley - I Shot The Sheriff', 'https://www.youtube.com/embed/2XiYUYcpsT4', 'https://img.youtube.com/vi/2XiYUYcpsT4/0.jpg', '', 'PUBLIC');
-
+	user_id INT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (user_id) REFERENCES users(id));
 
 
 INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (1, 'a', 'a', 'aa', 'aa', 'a@mail', '1.1.2000', 'ADMIN', 22);
@@ -62,6 +51,15 @@ INSERT INTO users (id, username, password, name, lastname, email, registrationDa
 INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (5, 'e', 'e', 'ee', 'ee', 'a@mail', '1.1.2000', 'USER', 43);
 INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (6, 'f', 'f', 'ff', 'ff', 'a@mail', '1.1.2000', 'USER', 7);
 INSERT INTO users (id, username, password, name, lastname, email, registrationDate, role, subsNumber) VALUES (7, 'g', 'g', 'gg', 'gg', 'a@mail', '1.1.2000', 'USER', 20);
+
+
+INSERT INTO videos (name, videoURL, videoImg, description, visibility, user_id) VALUES 
+	('Inglourious Basterds - Italian scene', 'https://www.youtube.com/embed/krtnt191Drg', 'https://img.youtube.com/vi/EGuiXTUQeH4/0.jpg', 'A scene from the movie Inglorious Basterds when 3 Americans come to German movie premiere and try to speak Italian.', 'PUBLIC', 2),
+	('Samsung Galaxy: Growing Up', 'https://www.youtube.com/embed/R59TevgzN3k', 'https://img.youtube.com/vi/vmDDOFXSgAs/0.jpg', '', 'UNLISTED', 1),
+	('THE RUBY PLAYBUTTON / YouTube 50 Mil Sub Reward Unbox', 'https://www.youtube.com/embed/7Vj5M0qKh8g', 'https://img.youtube.com/vi/Hrr3dp7zRQY/0.jpg', 'Unboxing the 50 mil sub reward ruby playbutton.', 'PRIVATE', 2),
+	('The Doors - L. A. Woman', 'https://www.youtube.com/embed/JskztPPSJwY', 'https://img.youtube.com/vi/JskztPPSJwY/0.jpg', '', 'PUBLIC', 3),
+	('Wu-Tang Clan - Forever FULL ALBUM', 'https://www.youtube.com/embed/5CzsXvAZ6R4', 'https://img.youtube.com/vi/5CzsXvAZ6R4/0.jpg', '', 'PUBLIC', 5),
+	('Bob Marley - I Shot The Sheriff', 'https://www.youtube.com/embed/2XiYUYcpsT4', 'https://img.youtube.com/vi/2XiYUYcpsT4/0.jpg', '', 'PUBLIC', 7);
 
 
 CREATE TABLE subs(

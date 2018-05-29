@@ -10,6 +10,19 @@ public class Comment {
 	private User author;
 	private Video video;
 	private boolean deleted;
+	
+	
+	
+	public Comment(int id, String content, Date date, User author, Video video, boolean deleted) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.date = date;
+		this.author = author;
+		this.video = video;
+		this.deleted = deleted;
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -26,7 +26,8 @@ public class UserDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				 int id = rset.getInt("id");
+//				 int id = rset.getInt("id");
+				int id = 2;
 				String korisnicko = rset.getString("username");
 				String password = rset.getString("password");
 				String name = rset.getString("name");
@@ -80,7 +81,8 @@ public class UserDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				 int id = rset.getInt("id");
+//				 int id = rset.getInt("id");
+				int id = 2;
 				String korisnicko = rset.getString("username");
 				String password = rset.getString("password");
 				String name = rset.getString("name");
@@ -120,6 +122,9 @@ public class UserDAO {
 	}
 	
 	
+	
+	
+	
 	public static ArrayList<User> getMostPopular() {
 
 		Connection conn = ConnectionManager.getConnection();
@@ -148,7 +153,8 @@ public class UserDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				int id = rset.getInt("id");
+//				int id = rset.getInt("id");
+				int id = 1;
 				String korisnicko = rset.getString("username");
 				String password = rset.getString("password");
 				String name = rset.getString("name");

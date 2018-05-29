@@ -1,10 +1,35 @@
 $(document).ready(function(){
 	var current;
+	var id = window.location.search.slice(1).split('&')[0].split('=')[1];
 	
 	
-	$.get('VideoServlet', function(data){
+	$.get('VideoServlet', {'id': id}, function(data){
 		console.log(data.video);
+		console.log(data.comments);
 		$("#myVideo").attr('src', data.video.videoURL);
+		$("h1").text(data.video.name);
+		$("h1").after('<div id="published">Published on <span id="date">'+data.video.date+
+				'</span> by <a href="profile.html?id='+data.video.owner.username +'" id="user"><b>'+data.video.owner.username+'</b></a></div>')
+//		$("#date").text(data.video.date);
+		$("#views").text(data.video.views + ' views');
+		$("#opisVidea").text(data.video.description);
+		$("#brojLajkova").text(data.video.likes);
+		$("#brojDislajkova").text(data.video.dislikes);
+		
+		
+		for(c in data.comments){
+			$('#komPoStr').after('<div class="komentar">'+
+					'<a href="profile.html?id='+data.comments[c].author.username+'" id="user"><b>'+data.comments[c].author.username+'</b></a>'+
+					'<div id="dislikeRating">8</div>'+
+					'<a href="#" id="dislike"><i class="material-icons">thumb_down</i></a>'+
+					'<a href="#" id="like"><i class="material-icons">thumb_up</i></a>'+
+					'<div id="likeRating">23</div><br>'+
+					'<div class="comment">'+data.comments[c].content+'</div>'+
+					'<!--<button id="like"><i class="material-icons">thumb_up</i></button>-->'+
+					'<span id="dateComm">10.02.2016.</span>'+
+				'</div>');
+		}
+		
 	});
 	
 	$.get('LoggedInServlet', function(data) {
