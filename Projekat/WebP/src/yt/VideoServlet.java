@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import yt.dao.CommentDAO;
+import yt.dao.RatingDAO;
 import yt.dao.VideoDAO;
 import yt.model.Comment;
+import yt.model.Rating;
 import yt.model.User;
 import yt.model.Video;
 
@@ -31,18 +33,35 @@ public class VideoServlet extends HttpServlet {
 
 		int id = Integer.parseInt(request.getParameter("id"));
 		System.out.println("id parametar jee: " + id);
-//		String load = request.getParameter("load");
+		String status = "unrated";
+		
+		if(loggedInUser != null) {
+			Rating rating = RatingDAO.getUserVideoLikes(id, loggedInUser.getUsername());
+			if(rating == null) {
+				status = "unrated";
+			} else if(rating != null) {
+				if(rating.isLikeDislike()) {
+					status = "liked";
+				} else {
+					status = "disliked";
+				}
+			}
+		} else {
+			status = "cannotLike";
+		}
 
 		Video video = VideoDAO.getVideo(id);
+		video.setViews(video.getViews() + 1);
+		VideoDAO.update(video);
+		int videoLikes = RatingDAO.getCountVideoLikes(id);
+		int videoDislikes = RatingDAO.getCountVideoDislikes(id);
 		ArrayList<Comment> comments = CommentDAO.getAll(id);
-//		if (load != null) {
-//			long currentViews = video.getViews();
-//			video.setViews(currentViews + 1);
-//			videoDAO.update(video);
-//		}
 
 		Map<String, Object> data = new HashMap<>();
 		data.put("video", video);
+		data.put("status", status);
+		data.put("videoLikes", videoLikes);
+		data.put("videoDislikes", videoDislikes);
 		data.put("comments", comments);
 		data.put("loggedInUser", loggedInUser);
 

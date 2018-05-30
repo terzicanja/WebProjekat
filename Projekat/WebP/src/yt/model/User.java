@@ -26,7 +26,9 @@ public class User {
 	private ArrayList<Rating> commentLikes;
 	
 	
-	
+	public User() {
+		
+	}
 	
 	
 	

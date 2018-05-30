@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/stil.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -8,6 +9,7 @@
 	<script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/login.js"></script>
+	<script src="js/registration.js"></script>
 	<title>Login</title>
 </head>
 <body>
@@ -37,20 +39,20 @@
 	<div id="slika">
 		<div class="container">
 			<div style="height: 88vh">
-			<form method="GET" id="registerForm">
+			<form action="RegistrationServlet" method="POST" id="registerForm">
 				<div>Registracija</div>
 				<table id="registerTable">
 					<tr>
                         <td>E-mail:</td>
-                        <td><input type="text" id="unos" name="email" autocomplete="off"></td>
+                        <td><input type="text" class="unos" id="emailInput" name="email" autocomplete="off"></td>
                     </tr>
                     <tr>
                         <td>Username:</td>
-                        <td><input type="text" id="unos" name="usname" autocomplete="off"></td>
+                        <td><input type="text" class="unos" id="usernameInput" name="usname" autocomplete="off"></td>
                     </tr>
                     <tr>
                         <td>Password:</td>
-                        <td><input type="password" id="unos" name="psw" autocomplete="off"></td>
+                        <td><input type="password" class="unos" id="passInput" name="psw" autocomplete="off"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><button type="submit" id="registerbtn">Register</button></td>

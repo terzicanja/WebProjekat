@@ -102,20 +102,20 @@ $(document).ready(function(e){
 		//}
 	});
 
-	$("#registerForm").submit(function(e){
-		
-		var usname = document.getElementById('uname');
-		var psw = document.getElementById('pw');
-		if(usname !=null || usname!="" || psw!=null || psw!=""){
-			//alert('Uspesno ste se registrovali');
-			localStorage.setItem('uname', uname.value);
-    		localStorage.setItem('pw', pw.value);
-		}else{
-			alert('Molim vas unesite potrebne podatke.');
-		}
-
-		
-	});
+//	$("#registerForm").submit(function(e){
+//		
+//		var usname = document.getElementById('uname');
+//		var psw = document.getElementById('pw');
+//		if(usname !=null || usname!="" || psw!=null || psw!=""){
+//			//alert('Uspesno ste se registrovali');
+//			localStorage.setItem('uname', uname.value);
+//    		localStorage.setItem('pw', pw.value);
+//		}else{
+//			alert('Molim vas unesite potrebne podatke.');
+//		}
+//
+//		
+//	});
 
 	function validateForm(){
         var a=document.forms["Form"]["username"].value;

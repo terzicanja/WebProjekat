@@ -13,8 +13,20 @@ $(document).ready(function(){
 //		$("#date").text(data.video.date);
 		$("#views").text(data.video.views + ' views');
 		$("#opisVidea").text(data.video.description);
-		$("#brojLajkova").text(data.video.likes);
-		$("#brojDislajkova").text(data.video.dislikes);
+		$("#brojLajkova").text(data.videoLikes);
+		$("#brojDislajkova").text(data.videoDislikes);
+		
+		if(data.status == "liked"){
+			console.log("ulazi ovde lajkovi videoservlet");
+			$("#like").css('color', 'green');
+			$("#dislike").css('color', '#D3D3D3');
+		} else if (data.status == "unrated"){
+			$("#dislike").css('color', '#D3D3D3');
+			$("#like").css('color', '#D3D3D3');
+		} else if (data.status == "disliked"){
+			$("#like").css('color', '#D3D3D3');
+			$("#dislike").css('color', 'red');
+		}
 		
 		
 		for(c in data.comments){
@@ -31,6 +43,98 @@ $(document).ready(function(){
 		}
 		
 	});
+	
+	
+//	$.get('RatingServlet', {'id': id}, function(data){
+//		
+//		if(data.status == "liked"){
+//			console.log("ulazi ovde lajkovi");
+//			$("#like").css('color', 'green');
+//		} else if (data.status == "unrated"){
+//			$("#dislike").css('color', '#D3D3D3');
+//		}
+//		
+//		$('#like').on('click', function(event){
+//			$("#brojLajkova").text(data.numberOfLikes);
+//			console.log(status);
+//			
+//			event.preventDefault();
+//			return false;
+//		});
+//	});
+	
+	
+//	$.post('RatingServlet', {'id': id}, function(data){
+//		
+//		if(data.status == "disliked"){
+//			console.log("ulazi ovde dis");
+//			$("#dislike").css('color', 'red');
+//		} else if (data.status == "unrated"){
+//			$("#dislike").css('color', '#D3D3D3');
+//		}
+//		
+//		$('#dislike').on('click', function(event){
+//			$("#brojDislajkova").text(data.numberOfDislikes);
+//			console.log(status);
+//			
+//			event.preventDefault();
+//			return false;
+//		});
+//	});
+	
+	
+	
+	
+	$('#like').on('click', function(event){
+		$.get('RatingServlet', {'id': id}, function(data){
+			$("#brojLajkova").text(data.numberOfLikes);
+			$("#brojDislajkova").text(data.numberOfDislikes);
+			console.log(status);
+			
+			if(data.status == "cannotLike"){
+				alert("u cant rate this video");
+				return false;
+			}
+			
+			if(data.status == "liked"){
+				console.log("ulazi ovde lajkovi");
+				$("#like").css('color', 'green');
+				$("#dislike").css('color', '#D3D3D3');
+			} else if (data.status == "unrated"){
+				$("#dislike").css('color', '#D3D3D3');
+			}
+		});
+		event.preventDefault();
+		return false;
+	});
+	
+	$('#dislike').on('click', function(event){
+		$.post('RatingServlet', {'id': id}, function(data){
+			$("#brojDislajkova").text(data.numberOfDislikes);
+			$("#brojLajkova").text(data.numberOfLikes);
+			console.log(status);
+			
+			if(data.status == "cannotLike"){
+				alert("u cant rate this video");
+				return false;
+			}
+			
+			if(data.status == "disliked"){
+				console.log("ulazi ovde dissss");
+				$("#dislike").css('color', 'red');
+				$("#like").css('color', '#D3D3D3');
+			} else if (data.status == "unrated"){
+				$("#dislike").css('color', '#D3D3D3');
+			}
+		});
+		event.preventDefault();
+		return false;
+	});
+	
+	
+	
+	
+	
 	
 	$.get('LoggedInServlet', function(data) {
 //		eventAuth = data.auth;

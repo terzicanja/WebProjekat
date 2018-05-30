@@ -194,5 +194,31 @@ public class UserDAO {
 	}
 	
 	
+	public static boolean create(User user) {
+		Connection conn = ConnectionManager.getConnection();
+		
+		PreparedStatement pstmt = null;
+		try {
+			String query = "INSERT INTO users (username, password, email, registrationDate) VALUES (?, ?, 'x', '2011-11-11')";
+			
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			pstmt.setString(index++, user.getUsername());
+			pstmt.setString(index++, user.getPassword());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 
 }

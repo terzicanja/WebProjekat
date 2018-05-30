@@ -21,7 +21,7 @@
 #loginTable tr td{
 	font-size: 1.5em;
 }
-#unos{
+.unos{
 	outline: none;
 	border: none;
 	border-bottom: 2px solid black;
