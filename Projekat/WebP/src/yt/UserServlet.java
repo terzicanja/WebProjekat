@@ -45,8 +45,29 @@ public class UserServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		
+		String username = request.getParameter("id");
+		String status = request.getParameter("status");
+		User user = UserDAO.get(username);
+		
+		if(status.equals("block")) {
+			if(user.isBlocked() == false) {
+				user.setBlocked(true);
+			}else if(user.isBlocked()) {
+				user.setBlocked(false);
+			}
+			UserDAO.update(user);
+		}else if(status.equals("delete")) {
+			if(user.isDeleted() == false) {
+				user.setDeleted(true);
+			}else if(user.isDeleted()) {
+				user.setDeleted(false);
+			}
+			UserDAO.update(user);
+		}
+		
 	}
 
 }

@@ -29,6 +29,22 @@ $(document).ready(function(){
 			$('#deletebtn').css('display', 'none');
 		}
 		
+		if(data.user.blocked === true){
+			console.log('user je blokiran');
+			$('#blockbtn').text('Blocked');
+		}else if(data.user.blocked === false){
+			console.log('user nije blokiran');
+			$('#blockbtn').text('Block');
+		}
+		
+		if(data.user.deleted === true){
+			console.log('user je deleted');
+			$('#deletebtn').text('Deleted');
+		}else if(data.user.deleted === false){
+			console.log('user nije deleted');
+			$('#deletebtn').text('Delete');
+		}
+		
 		if (data.loggedInUser.username == data.user.username){
 			$('#followbtn').css('visibility', 'hidden');
 			
@@ -59,6 +75,21 @@ $(document).ready(function(){
 				}
 			}
 		}
+		
+		$('#blockbtn').on('click', function(event){
+			console.log('blokiras korisnika');
+			$.post('UserServlet', {'id': id, 'status': 'block'}, function(data){
+				
+			});
+		});
+		
+		
+		$('#deletebtn').on('click', function(event){
+			console.log('brises korisnika');
+				$.post('UserServlet', {'id': id, 'status': 'delete'}, function(data){
+				
+			});
+		});
 		
 		
 	});

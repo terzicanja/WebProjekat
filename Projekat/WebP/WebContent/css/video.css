@@ -108,7 +108,7 @@ video{
 }
 
 
-#like{
+#like, #likeComment{
 	margin: 5px;
 	color: #D3D3D3;
 	display: inline-block;
@@ -119,11 +119,11 @@ video{
 #like:active{
 	color: green;
 }
-#like i, #dislike i{
+#like i, #dislike i, #likeComment i, #dislikeComment i{
 	font-size: 1.25em;
 }
 
-#dislike{
+#dislike, #dislikeComment{
 	margin: 5px;
 	color: #D3D3D3;
 	display: inline-block;

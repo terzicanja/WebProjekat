@@ -9,19 +9,23 @@ public class Comment {
 	private Date date;
 	private User author;
 	private Video video;
+	private int likesNumber;
+	private int dislikesNumber;
 	private boolean deleted;
 	
 	public Comment() {
 		
 	}
 	
-	public Comment(int id, String content, Date date, User author, Video video, boolean deleted) {
+	public Comment(int id, String content, Date date, User author, Video video, int likesNumber, int dislikesNumber, boolean deleted) {
 		super();
 		this.id = id;
 		this.content = content;
 		this.date = date;
 		this.author = author;
 		this.video = video;
+		this.likesNumber = likesNumber;
+		this.dislikesNumber = dislikesNumber;
 		this.deleted = deleted;
 	}
 	
@@ -60,6 +64,22 @@ public class Comment {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public int getLikesNumber() {
+		return likesNumber;
+	}
+
+	public void setLikesNumber(int likesNumber) {
+		this.likesNumber = likesNumber;
+	}
+
+	public int getDislikesNumber() {
+		return dislikesNumber;
+	}
+
+	public void setDislikesNumber(int dislikesNumber) {
+		this.dislikesNumber = dislikesNumber;
 	}
 	
 	

@@ -24,17 +24,21 @@ public class RegistrationServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String doing = request.getParameter("doing");
+		String id = request.getParameter("id");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-//		String username = request.getParameter("username");
-//		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		String name = request.getParameter("name");
+		String lastname = request.getParameter("lastname");
+		String description = request.getParameter("description");
 		String status = "success";
 		
 		User u = UserDAO.get(username);
-		if(u != null) {
+		if(u != null && doing.equals("add")) {
 			System.out.println("korisnik vec postoji");
 			status = "existing";
-		} else {
+		} else if(doing.equals("add")) {
 //			Date date = new Date();
 //			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //			String currentTime = simpleDate.format(date);
@@ -55,7 +59,27 @@ public class RegistrationServlet extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().write(jsonData);
 			
+		}else if(doing.equals("edit")) {
+			User korisnik = UserDAO.get(id);
+			korisnik.setPassword(password);
+			korisnik.setName(name);
+			korisnik.setLastname(lastname);
+			korisnik.setDescription(description);
+			korisnik.setEmail(email);
+			
+			UserDAO.update(korisnik);
+			status = "edited";
+			
 		}
+		Map<String, Object> data = new HashMap<>();
+		data.put("status", status);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonData = mapper.writeValueAsString(data);
+		System.out.println(jsonData);
+
+		response.setContentType("application/json");
+		response.getWriter().write(jsonData);
 //		response.sendRedirect("./home.html");
 		
 		

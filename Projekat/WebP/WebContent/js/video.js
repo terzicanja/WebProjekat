@@ -32,10 +32,10 @@ $(document).ready(function(){
 		for(c in data.comments){
 			$('#komPoStr').after('<div class="komentar" id="'+data.comments[c].id+'">'+
 					'<a href="profile.html?id='+data.comments[c].author.username+'" id="user"><b>'+data.comments[c].author.username+'</b></a>'+
-					'<div id="dislikeRating">8</div>'+
-					'<a href="#" id="dislike"><i class="material-icons">thumb_down</i></a>'+
-					'<a href="#" id="like"><i class="material-icons">thumb_up</i></a>'+
-					'<div id="likeRating">23</div><br>'+
+					'<div id="dislikeRating">'+data.comments[c].dislikesNumber+'</div>'+
+					'<a href="#" id="dislikeComment" class="'+data.comments[c].id+'"><i class="material-icons">thumb_down</i></a>'+
+					'<a href="#" id="likeComment" class="'+data.comments[c].id+'"><i class="material-icons">thumb_up</i></a>'+
+					'<div id="likeRating">'+data.comments[c].likesNumber+'</div><br>'+
 					'<div class="comment" id="content'+data.comments[c].id+'">'+data.comments[c].content+'</div>'+
 					'<!--<button id="like"><i class="material-icons">thumb_up</i></button>-->'+
 					'<span id="dateComm'+data.comments[c].id+'">10.02.2016.</span>'+
@@ -120,13 +120,63 @@ $(document).ready(function(){
 		});
 		
 		
+		$('#likeComment').on('click', function(event){
+			var commentId = $(this).attr('class');
+			console.log('lajkovanje komentara ' + commentId);
+			$.get('RatingServlet', {'id': id, 'commentId': commentId, 'what': 'comment'}, function(data){
+//				$("#brojLajkova").text(data.numberOfLikes);
+//				$("#brojDislajkova").text(data.numberOfDislikes);
+//				console.log(status);
+				
+				if(data.status == "cannotLike"){
+					alert("u cant rate this comment");
+					return false;
+				}
+				
+				if(data.status == "liked"){
+					console.log("ulazi ovde lajkovi");
+					$("#likeComment").css('color', 'green');
+					$("#dislikeComment").css('color', '#D3D3D3');
+				} else if (data.status == "unrated"){
+					$("#dislikeComment").css('color', '#D3D3D3');
+				}
+			});
+			event.preventDefault();
+			return false;
+		});
+		
+		$('#dislikeComment').on('click', function(event){
+			var commentId = $(this).attr('class');
+			$.post('RatingServlet', {'id': id, 'commentId': commentId, 'what': 'comment'}, function(data){
+//				$("#brojDislajkova").text(data.numberOfDislikes);
+//				$("#brojLajkova").text(data.numberOfLikes);
+//				console.log(status);
+				
+				if(data.status == "cannotLike"){
+					alert("u cant rate this comment");
+					return false;
+				}
+				
+				if(data.status == "disliked"){
+					console.log("ulazi ovde dissss");
+					$("#dislikeComment").css('color', 'red');
+					$("#likeComment").css('color', '#D3D3D3');
+				} else if (data.status == "unrated"){
+					$("#dislikeComment").css('color', '#D3D3D3');
+				}
+			});
+			event.preventDefault();
+			return false;
+		});
+		
+		
 	});
 	
 	
 	
 	
 	$('#like').on('click', function(event){
-		$.get('RatingServlet', {'id': id}, function(data){
+		$.get('RatingServlet', {'id': id, 'what': 'video'}, function(data){
 			$("#brojLajkova").text(data.numberOfLikes);
 			$("#brojDislajkova").text(data.numberOfDislikes);
 			console.log(status);
@@ -149,7 +199,7 @@ $(document).ready(function(){
 	});
 	
 	$('#dislike').on('click', function(event){
-		$.post('RatingServlet', {'id': id}, function(data){
+		$.post('RatingServlet', {'id': id, 'what': 'video'}, function(data){
 			$("#brojDislajkova").text(data.numberOfDislikes);
 			$("#brojLajkova").text(data.numberOfLikes);
 			console.log(status);

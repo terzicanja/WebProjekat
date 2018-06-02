@@ -33,9 +33,11 @@ public class CommentDAO {
 				String username = rset.getString("author");
 				User author = UserDAO.get(username);
 				Video video = VideoDAO.getVideo(videoId);
+				int likesNumber = rset.getInt("likesNumber");
+				int dislikesNumber = rset.getInt("dislikesNumber");
 				boolean deleted = rset.getBoolean("deleted");
 				
-				Comment comment = new Comment(id, content, date, author, video, deleted);
+				Comment comment = new Comment(id, content, date, author, video, likesNumber, dislikesNumber, deleted);
 				comments.add(comment);
 			}
 			
@@ -78,9 +80,11 @@ public class CommentDAO {
 				User author = UserDAO.get(username);
 				int videoId = rset.getInt("videoId");
 				Video video = VideoDAO.getVideo(videoId);
+				int likesNumber = rset.getInt("likesNumber");
+				int dislikesNumber = rset.getInt("dislikesNumber");
 				boolean deleted = rset.getBoolean("deleted");
 				
-				return new Comment(id, content, date, author, video, deleted);
+				return new Comment(id, content, date, author, video, likesNumber, dislikesNumber, deleted);
 			}
 		} catch (Exception e) {
 			System.out.println("Greska u SQL upitu!");
@@ -132,11 +136,13 @@ public class CommentDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String query = "UPDATE comments SET content = ?, comment_date = '2010-10-10', deleted = ? WHERE id = ?";
+			String query = "UPDATE comments SET content = ?, comment_date = '2010-10-10', likesNumber = ?, dislikesNumber = ?, deleted = ? WHERE id = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, comment.getContent());
-			pstmt.setBoolean(2, comment.isDeleted());
-			pstmt.setInt(3, comment.getId());
+			pstmt.setBoolean(4, comment.isDeleted());
+			pstmt.setInt(2, comment.getLikesNumber());
+			pstmt.setInt(3, comment.getDislikesNumber());
+			pstmt.setInt(5, comment.getId());
 			
 			return pstmt.executeUpdate() == 1;
 		} catch (Exception e) {

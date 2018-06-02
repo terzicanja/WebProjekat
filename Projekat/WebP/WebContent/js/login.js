@@ -9,14 +9,14 @@ $(document).ready(function(e){
 		if (status == "loggedIn"){
 			if(loggedInUser.role == "ADMIN"){
 				$('#sign').append('<a href="#" id="profile">' + loggedInUser.username + '</a> <span>/</span> <a href="admin.html" id="profile">All users</a>'+
-				'<a href="#" id="profile">Edit profile</a> <span>/</span> <a href="LogoutServlet" id="signout">Sign out</a>');
+				'<a href="register.html?doing=edit&id='+loggedInUser.username+'" id="profile">Edit profile</a> <span>/</span> <a href="LogoutServlet" id="signout">Sign out</a>');
 			} else {
 				$('#sign').append('<a href="#" id="profile">' + loggedInUser.username + '</a> <span>/</span> '+
-				'<a href="#" id="profile">Edit profile</a> <span>/</span> <a href="LogoutServlet" id="signout">Sign out</a>');
+				'<a href="register.html?doing=edit&id='+loggedInUser.username+'" id="profile">Edit profile</a> <span>/</span> <a href="LogoutServlet" id="signout">Sign out</a>');
 			}
 			
 		} else {
-			$('#sign').append('<a href="register.html" id="register">Register</a><span>/</span><a href="login.html" id="signin">Sign in</a>');
+			$('#sign').append('<a href="register.html?doing=add&id=0" id="register">Register</a><span>/</span><a href="login.html" id="signin">Sign in</a>');
 		}
 		
 		
