@@ -55,7 +55,103 @@ public class CommentDAO {
 			}
 		}
 		return comments;
-		
 	}
+	
+	
+	public static Comment getComment(int id) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			String query = "SELECT * FROM comments WHERE id = ? AND deleted = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, id);
+			pstmt.setBoolean(2, false);
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+//				int id = rset.getInt("id");
+				String content = rset.getString("content");
+				Date date = rset.getDate("comment_date");
+				String username = rset.getString("author");
+				User author = UserDAO.get(username);
+				int videoId = rset.getInt("videoId");
+				Video video = VideoDAO.getVideo(videoId);
+				boolean deleted = rset.getBoolean("deleted");
+				
+				return new Comment(id, content, date, author, video, deleted);
+			}
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	
+	public static boolean addComment(Comment comment) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "INSERT INTO comments (content, author, videoId) VALUES (?, ?, ?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, comment.getContent());
+			pstmt.setString(2, comment.getAuthor().getUsername());
+			pstmt.setInt(3, comment.getVideo().getId());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	
+	public static boolean updateComment(Comment comment) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "UPDATE comments SET content = ?, comment_date = '2010-10-10', deleted = ? WHERE id = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, comment.getContent());
+			pstmt.setBoolean(2, comment.isDeleted());
+			pstmt.setInt(3, comment.getId());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	
 
 }

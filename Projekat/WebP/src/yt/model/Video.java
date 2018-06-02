@@ -24,6 +24,10 @@ public class Video {
 	private Date date;
 	private User owner;
 	
+	public Video() {
+		
+	}
+	
 	
 	public Video(int id, String videoURL, String videoImg, String name, String description, Visibility visibility,
 			boolean commentsAllowed, boolean blocked, boolean ratingAllowed, boolean deleted, int views, int likes,

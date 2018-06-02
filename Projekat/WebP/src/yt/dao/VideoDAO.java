@@ -269,6 +269,35 @@ public class VideoDAO {
 	}
 	
 	
+	public static boolean create(Video video) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "INSERT INTO videos(name, videoURL, videoImg, description, commentsAllowed, ratingAllowed, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, video.getName());
+			pstmt.setString(2, video.getVideoURL());
+			pstmt.setString(3, "smaras");
+			pstmt.setString(4, video.getDescription());
+//			pstmt.setString(4, video.getVisibility().toString());
+			pstmt.setBoolean(5, video.isCommentsAllowed());
+			pstmt.setBoolean(6, video.isRatingAllowed());
+			pstmt.setString(7, video.getOwner().getUsername());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
 	
 	
 	

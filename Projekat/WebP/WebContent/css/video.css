@@ -65,6 +65,10 @@ video{
 	margin-bottom: 20px;
 }
 
+#addContent{
+	width: 70%;
+}
+
 .comments{
 	width: calc(70% - 15px);
 	display: inline-block;

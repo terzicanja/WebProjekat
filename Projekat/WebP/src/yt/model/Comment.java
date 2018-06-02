@@ -11,7 +11,9 @@ public class Comment {
 	private Video video;
 	private boolean deleted;
 	
-	
+	public Comment() {
+		
+	}
 	
 	public Comment(int id, String content, Date date, User author, Video video, boolean deleted) {
 		super();

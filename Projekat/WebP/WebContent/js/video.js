@@ -30,57 +30,97 @@ $(document).ready(function(){
 		
 		
 		for(c in data.comments){
-			$('#komPoStr').after('<div class="komentar">'+
+			$('#komPoStr').after('<div class="komentar" id="'+data.comments[c].id+'">'+
 					'<a href="profile.html?id='+data.comments[c].author.username+'" id="user"><b>'+data.comments[c].author.username+'</b></a>'+
 					'<div id="dislikeRating">8</div>'+
 					'<a href="#" id="dislike"><i class="material-icons">thumb_down</i></a>'+
 					'<a href="#" id="like"><i class="material-icons">thumb_up</i></a>'+
 					'<div id="likeRating">23</div><br>'+
-					'<div class="comment">'+data.comments[c].content+'</div>'+
+					'<div class="comment" id="content'+data.comments[c].id+'">'+data.comments[c].content+'</div>'+
 					'<!--<button id="like"><i class="material-icons">thumb_up</i></button>-->'+
-					'<span id="dateComm">10.02.2016.</span>'+
+					'<span id="dateComm'+data.comments[c].id+'">10.02.2016.</span>'+
+					'<input type="button" id="editComment" name="'+data.comments[c].id+'" value="Edit">'+
+					'<input type="button" id="deleteComment" name="'+data.comments[c].id+'" value="Delete">'+
+					'<!--<button type="button" id="deleteComment" name="'+data.comments[c].id+'">delete</button>-->'+
 				'</div>');
 		}
 		
+		
+		$('input[type=button]#deleteComment').on('click', function(event){
+			console.log('kliknut je delete');
+			var commentId = $(this).attr('name');
+			$.post('CommentServlet', {'status': 'delete', 'commentId': commentId}, function(data){
+				
+			});
+			event.preventDefault();
+			return false;
+		});
+		
+		
+		$('input[type=button]#editComment').on('click', function(event){
+			console.log('kliknut edit comment');
+			var commentId = $(this).attr('name');
+			console.log('id komentara je ovaj: '+commentId);
+			var find = '#content' + commentId;
+			var addTextarea = '#dateComm' + commentId;
+			var old = $(find).text();
+			console.log(old);
+			$(find).hide();
+			$(addTextarea).before('<textarea id="editContent'+commentId+'" maxlength="100">'+old+'</textarea>');
+			var editContent = '#editContent' + commentId;
+			$(editContent).after('<button type="button" id="cancelEdit" name="'+commentId+'">cancel</button>');
+			$(editContent).after('<button type="button" id="confirmEdit" name="'+commentId+'">confirm</button>');
+			
+			$('#confirmEdit').on('click', function(event){
+				console.log('potvrdjujem edit');
+				var newId = $(this).attr('name');
+				var newContent = '#editContent' + newId;
+				var newComment = $(newContent).val();
+				$.post('CommentServlet',{'id': id, 'newId':newId,'status':"edit",'newComment':newComment},function(data){
+//					var oldContent=$(select).text(content);
+//					var oldDate=$(dateSelect).text(data.newDate);
+					$(newContent).fadeOut();
+					$(find).text(newComment);
+				});
+				
+				event.preventDefault();
+				return false;
+			});
+			
+			$('#cancelEdit').on('click', function(event){
+				console.log('cancel edit');
+				var contentId = $(this).attr('name');
+				var editContent = '#editContent' + contentId;
+				var cancelEdit = '#cancelEdit' + contentId;
+				var confirmEdit = '#confirmEdit' + contentId;
+				var findOld = '#content' + contentId;
+				
+				$(editContent).remove();
+				$('#cancelEdit').remove();
+				$('#confirmEdit').remove();
+				
+				$(findOld).show();
+				
+				event.preventDefault();
+				return false;
+			});
+			
+			event.preventDefault();
+			return false;
+		});
+		
+		
+		$('#addVideo').on('click', function(event){
+			window.location.replace('add.html?doing=add&id=0');
+		});
+		
+		
+		$('#editVideo').on('click', function(event){
+			window.location.replace('add.html?doing=edit&id='+id);
+		});
+		
+		
 	});
-	
-	
-//	$.get('RatingServlet', {'id': id}, function(data){
-//		
-//		if(data.status == "liked"){
-//			console.log("ulazi ovde lajkovi");
-//			$("#like").css('color', 'green');
-//		} else if (data.status == "unrated"){
-//			$("#dislike").css('color', '#D3D3D3');
-//		}
-//		
-//		$('#like').on('click', function(event){
-//			$("#brojLajkova").text(data.numberOfLikes);
-//			console.log(status);
-//			
-//			event.preventDefault();
-//			return false;
-//		});
-//	});
-	
-	
-//	$.post('RatingServlet', {'id': id}, function(data){
-//		
-//		if(data.status == "disliked"){
-//			console.log("ulazi ovde dis");
-//			$("#dislike").css('color', 'red');
-//		} else if (data.status == "unrated"){
-//			$("#dislike").css('color', '#D3D3D3');
-//		}
-//		
-//		$('#dislike').on('click', function(event){
-//			$("#brojDislajkova").text(data.numberOfDislikes);
-//			console.log(status);
-//			
-//			event.preventDefault();
-//			return false;
-//		});
-//	});
 	
 	
 	
@@ -132,13 +172,43 @@ $(document).ready(function(){
 	});
 	
 	
+	$('#postComment').on('click', function(event){
+		console.log('kliknut post comment');
+		var contentInput = $('#addContent');
+		var content = contentInput.val();
+		$.post('CommentServlet', {'content': content, 'status': 'add', 'id': id}, function(data){
+			
+		});
+		event.preventDefault();
+		return false;
+	});
+	
+	
+	
+	
+//	$('input[type=button]#deleteComment').on('click', function(event){
+//		console.log('kliknut je delete');
+//		var commentId = $(this).attr('name');
+//		$.post('CommentServlet', {'status': 'delete', 'commentId': commentId}, function(data){
+//			$('#addContent').clear();
+//		});
+//		event.preventDefault();
+//		return false;
+//	});
+	
+//	$('#editComment').on('click', function(event){
+//		console.log('kliknut edit comment');
+//		
+//		event.preventDefault();
+//		return false;
+//	});
+	
+	
 	
 	
 	
 	
 	$.get('LoggedInServlet', function(data) {
-//		eventAuth = data.auth;
-		
 		var loggedInUser = data.loggedInUser;
 		var status = data.status;
 		
@@ -157,6 +227,12 @@ $(document).ready(function(){
 		
 		
 	});
+	
+	
+	
+	
+	
+	
 	
 	
 	

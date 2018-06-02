@@ -20,6 +20,7 @@ import yt.model.Comment;
 import yt.model.Rating;
 import yt.model.User;
 import yt.model.Video;
+import yt.model.Video.Visibility;
 
 public class VideoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -73,10 +74,71 @@ public class VideoServlet extends HttpServlet {
 		response.getWriter().write(json);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		String doing = request.getParameter("doing");
+		String url = request.getParameter("url");
+		String name = request.getParameter("name");
+		String description = request.getParameter("description");
+		String visibility = request.getParameter("visibility");
+		boolean comments = Boolean.parseBoolean(request.getParameter("comments"));
+		boolean rating = Boolean.parseBoolean(request.getParameter("rating"));
+		Visibility visi;
+		if(visibility.equals("Public")) {
+			visi = Visibility.PUBLIC;
+		}else if(visibility.equals("Private")) {
+			visi = Visibility.PRIVATE;
+		}else if(visibility.equals("Unlisted")) {
+			visi = Visibility.UNLISTED;
+		}
+		System.out.println("description: " + description);
+		
+		if(doing.equals("add")) {
+			Video v = new Video();
+			v.setVideoURL(url);
+			v.setName(name);
+			v.setDescription(description);
+//			v.setVisibility(visi);
+			v.setCommentsAllowed(comments);
+			v.setRatingAllowed(rating);
+			v.setOwner(loggedInUser);
+			VideoDAO.create(v);
+			
+			Map<String, Object> data = new HashMap<>();
+			data.put("status", "success");
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonData = mapper.writeValueAsString(data);
+			System.out.println(jsonData);
+
+			response.setContentType("application/json");
+			response.getWriter().write(jsonData);
+		} else {
+			Video video = VideoDAO.getVideo(id);
+//			video.setVideoURL(url);
+			video.setName(name);
+			video.setDescription(description);
+//			video.setVisibility(visi);
+			video.setCommentsAllowed(comments);
+			video.setRatingAllowed(rating);
+			video.setOwner(loggedInUser);
+			VideoDAO.update(video);
+			
+			Map<String, Object> data = new HashMap<>();
+			data.put("status", "edited");
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonData = mapper.writeValueAsString(data);
+			System.out.println(jsonData);
+
+			response.setContentType("application/json");
+			response.getWriter().write(jsonData);
+		}
+		
+		
+		
+		
 	}
 
 }
