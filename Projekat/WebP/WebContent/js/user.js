@@ -29,6 +29,12 @@ $(document).ready(function(){
 			$('#deletebtn').css('display', 'none');
 		}
 		
+		if(data.subs == 'following'){
+			$('#followbtn').text('Following');
+		}else{
+			$('#followbtn').text('Follow');
+		}
+		
 		if(data.user.blocked === true){
 			console.log('user je blokiran');
 			$('#blockbtn').text('Blocked');
@@ -87,6 +93,14 @@ $(document).ready(function(){
 		$('#deletebtn').on('click', function(event){
 			console.log('brises korisnika');
 				$.post('UserServlet', {'id': id, 'status': 'delete'}, function(data){
+				
+			});
+		});
+		
+		
+		$('#followbtn').on('click', function(event){
+			console.log('pratis korisnika');
+				$.post('UserServlet', {'id': id, 'status': 'follow'}, function(data){
 				
 			});
 		});

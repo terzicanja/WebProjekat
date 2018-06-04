@@ -1,28 +1,54 @@
 $(document).ready(function(){
 	
-	
-	$.get('HomeServlet', function(data){
+	$.get('HomeServlet', {'sort': 'none'}, function(data){
 		console.log(data);
 		for(v in data.videos){
 			$('.recommended').append('<div id="videoHome">'+
 					'<div class="thumbnailWrapper">'+
-						'<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>'+
+						'<a href="video.html?id='+ data.videos[v].id +'"><img src="'+data.videos[v].videoImg+'" id="thumbnail"></a>'+
 					'</div>'+
 					'<a href="video.html?id='+ data.videos[v].id +'" id="naslov">' + data.videos[v].name + '</a>'+
-					'<a href="profile.html" id="user">pero</a>'+
-					'<span id="views">'+ data.videos[v].views +'</span>'+
-					'<span id="date">06.02.2018.</span>'+
+					'<a href="profile.html?id='+ data.videos[v].owner.username +'" id="user">'+ data.videos[v].owner.username +'</a>'+
+					'<span id="views">'+ data.videos[v].views +' views</span>'+
+					'<span id="date">'+ data.videos[v].date +'</span>'+
 				'</div>')
 		}
 		
 		for(u in data.topFive){
 			$('#top').append('<div id="osoba"><div id="korisnickoIme">'+
-					'<a href="profile.html">' + data.topFive[u].username + '</a></div>'+
+					'<a href="profile.html?id=' + data.topFive[u].username + '">' + data.topFive[u].username + '</a></div>'+
 					'<div id="foloveri">'+ data.topFive[u].subsNumber +' followers</div><button id="zafoluj">Follow</button></div>');
 		}
 	});
 	
-	
+	$('#mostPopular, #leastPopular, #newest, #oldest, #alphabeticAuthorReverse, #alphabeticAuthor, #alphabeticReverse, #alphabetic').on('click', function(event){
+		var sort = $(this).attr('id');
+		console.log('sortiraj po: '+ sort);
+		
+		$('.recommended').empty();
+		
+		$.get('HomeServlet', {'sort': sort}, function(data){
+			console.log(data);
+			for(v in data.videos){
+				$('.recommended').append('<div id="videoHome">'+
+						'<div class="thumbnailWrapper">'+
+							'<a href="video.html?id='+ data.videos[v].id +'"><img src="'+data.videos[v].videoImg+'" id="thumbnail"></a>'+
+						'</div>'+
+						'<a href="video.html?id='+ data.videos[v].id +'" id="naslov">' + data.videos[v].name + '</a>'+
+						'<a href="profile.html?id='+ data.videos[v].owner.username +'" id="user">'+ data.videos[v].owner.username +'</a>'+
+						'<span id="views">'+ data.videos[v].views +' views</span>'+
+						'<span id="date">'+ data.videos[v].date +'</span>'+
+					'</div>')
+			}
+			
+//			for(u in data.topFive){
+//				$('#top').append('<div id="osoba"><div id="korisnickoIme">'+
+//						'<a href="profile.html?id=' + data.topFive[u].username + '">' + data.topFive[u].username + '</a></div>'+
+//						'<div id="foloveri">'+ data.topFive[u].subsNumber +' followers</div><button id="zafoluj">Follow</button></div>');
+//			}
+		});
+		
+	});
 	
 	
 	

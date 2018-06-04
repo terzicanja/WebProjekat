@@ -26,14 +26,22 @@ public class UserServlet extends HttpServlet {
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
 		
 		String username = request.getParameter("id");
+		String subs = "";
 		User user = UserDAO.get(username);
 		ArrayList<Video> videos = VideoDAO.getVideosByUser(username);
 		System.out.println("parametar za usera je: " + username);
+		
+		if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
+			subs = "notFollowing";
+		}else {
+			subs = "following";
+		}
 		
 		Map<String, Object> data = new HashMap<>();
 		
 		data.put("loggedInUser", loggedInUser);
 		data.put("user", user);
+		data.put("subs", subs);
 		data.put("videos", videos);
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -50,6 +58,7 @@ public class UserServlet extends HttpServlet {
 		
 		String username = request.getParameter("id");
 		String status = request.getParameter("status");
+		String subs = "";
 		User user = UserDAO.get(username);
 		
 		if(status.equals("block")) {
@@ -66,6 +75,14 @@ public class UserServlet extends HttpServlet {
 				user.setDeleted(false);
 			}
 			UserDAO.update(user);
+		}else if(status.equals("follow")) {
+			if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
+				subs = "notFollowing";
+				
+			}else {
+				subs = "following";
+				
+			}
 		}
 		
 	}

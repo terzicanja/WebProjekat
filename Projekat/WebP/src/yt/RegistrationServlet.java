@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,6 +25,9 @@ public class RegistrationServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		
 		String doing = request.getParameter("doing");
 		String id = request.getParameter("id");
 		String username = request.getParameter("username");
@@ -39,13 +43,17 @@ public class RegistrationServlet extends HttpServlet {
 			System.out.println("korisnik vec postoji");
 			status = "existing";
 		} else if(doing.equals("add")) {
-//			Date date = new Date();
-//			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//			String currentTime = simpleDate.format(date);
 			User user = new User();
 			user.setUsername(username);
 			user.setPassword(password);
-//			user.setRegistrationDate(simpleDate);
+			user.setEmail(email);
+			user.setName(name);
+			user.setLastname(lastname);
+			user.setDescription(description);
+			Date dt = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = sdf.format(dt);
+			user.setRegistrationDate(currentTime);
 			
 			UserDAO.create(user);
 			

@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/stil.css">
-	<link rel="stylesheet" type="text/css" href="css/home.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script src="js/jquery-2.1.0.min.js"></script>
-	<script src="js/script.js"></script>
-	<script src="js/home.js"></script>
-	<script src="js/login.js"></script>
-	<title>Home</title>
+<link rel="stylesheet" type="text/css" href="css/stil.css">
+<link rel="stylesheet" type="text/css" href="css/home.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<script src="js/jquery-2.1.0.min.js"></script>
+<script src="js/script.js"></script>
+<script src="js/home.js"></script>
+<script src="js/login.js"></script>
+<title>Home</title>
 </head>
 <body>
 	<header>
 		<div id="header">
-			<a href="#"><i class="material-icons" id="menubtn">menu</i></a>
-			<a href="home.html"><img src="images/logoo.png" id="logo"></a>
+			<a href="#"><i class="material-icons" id="menubtn">menu</i></a> <a
+				href="home.html"><img src="images/logoo.png" id="logo"></a>
 			<div id="sign"></div>
 			<a href="#"><img src="images/profile.png" id="profilbtn"></a>
 			<div class="searchbar">
@@ -39,96 +41,57 @@
 			<div id="top">
 				<b>Top 5 kanala</b><br>
 			</div>
-			<div id="sadrzaj" style="width: 100%;background:white;padding: 20px 0;">
+			<div id="sadrzaj"
+				style="width: 100%; background: white; padding: 20px 0;">
+				
+					<div class="dropdown">
+						<button onclick="myFunction()" id="sort" class="dropbtn">Sort</button>
+						<div id="myDropdown" class="dropdown-content">
+							<a href="#sort" id="mostPopular">Most popular</a> 
+							<a href="#sort" id="leastPopular">Least popular</a> 
+							<a href="#sort" id="newest">Newest</a>
+							<a href="#sort" id="oldest">Oldest</a>
+							<a href="#sort" id="alphabetic">A-Z</a>
+							<a href="#sort" id="alphabeticReverse">Z-A</a>
+							<a href="#sort" id="alphabeticAuthor">A-Z author</a>
+							<a href="#sort" id="alphabeticAuthorReverse">Z-A author</a>
+						</div>
+					</div>
 				<div class="recommended">
-				<p><b>Recommended</b></p>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="video.html" id="naslov">Video sa youtube-a</a>
-					<a href="profile.html" id="user">pero</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
+					<p>
+						<b>Recommended</b>
+					</p>
 				</div>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="local.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="local.html" id="naslov">Video sa kompa</a>
-					<a href="profile.html" id="user">pero</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
-				</div>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="video.html" id="naslov">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
-					<a href="profile.html" id="user">unknown</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
-				</div>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="video.html" id="naslov">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
-					<a href="profile.html" id="user">pero</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
-				</div>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="video.html" id="naslov">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
-					<a href="profile.html" id="user">pero</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
-				</div>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="video.html" id="naslov">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
-					<a href="profile.html" id="user">pero</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
-				</div>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="video.html" id="naslov">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
-					<a href="profile.html" id="user">pero</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
-				</div>
-				<div id="videoHome">
-					<div class="thumbnailWrapper">
-						<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>
-					</div>
-					<a href="video.html" id="naslov">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
-					<a href="profile.html" id="user">pero</a>
-					<span id="views">1000 views</span>
-					<span id="date">06.02.2018.</span>
+				<div id="pagination">
+					<a href="#pagination" class="active">1</a> <a href="#pagination">2</a>
+					<a href="#pagination">3</a> <a href="#pagination">4</a> <a
+						href="#pagination">5</a> <a href="#pagination">6</a>
 				</div>
 			</div>
-			<div id="pagination">
-  					<a href="#pagination" class="active">1</a>
-  					<a href="#pagination">2</a>
-  					<a href="#pagination">3</a>
-  					<a href="#pagination">4</a>
-  					<a href="#pagination">5</a>
-  					<a href="#pagination">6</a>
-			</div>
-			</div>
-			
+
 		</div>
 	</div>
 	<footer>
 		<p>Created by Anja Terzic</p>
 	</footer>
+	<script type="text/javascript">
+	function myFunction() {
+	    document.getElementById("myDropdown").classList.toggle("show");
+	}
+	
+	window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+
+		    var dropdowns = document.getElementsByClassName("dropdown-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		}
+	</script>
 </body>
 </html>

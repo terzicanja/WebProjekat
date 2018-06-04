@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,7 +37,7 @@ public class UserDAO {
 				String lastname = rset.getString("lastname");
 				String email = rset.getString("email");
 				String description = rset.getString("description");
-				Date registrationDate = rset.getDate("registrationDate");
+				String registrationDate = rset.getString("registrationDate");
 				Role role = Role.valueOf(rset.getString("role"));
 				boolean blocked = rset.getBoolean("blocked");
 				boolean deleted = rset.getBoolean("deleted");
@@ -89,7 +92,7 @@ public class UserDAO {
 				String lastname = rset.getString("lastname");
 				String email = rset.getString("email");
 				String description = rset.getString("description");
-				Date registrationDate = rset.getDate("registrationDate");
+				String registrationDate = rset.getString("registrationDate");
 				Role role = Role.valueOf(rset.getString("role"));
 				boolean blocked = rset.getBoolean("blocked");
 				boolean deleted = rset.getBoolean("deleted");
@@ -161,7 +164,7 @@ public class UserDAO {
 				String lastname = rset.getString("lastname");
 				String email = rset.getString("email");
 				String description = rset.getString("description");
-				Date registrationDate = rset.getDate("registrationDate");
+				String registrationDate = rset.getString("registrationDate");
 				Role role = Role.valueOf(rset.getString("role"));
 				boolean blocked = rset.getBoolean("blocked");
 				boolean deleted = rset.getBoolean("deleted");
@@ -199,12 +202,17 @@ public class UserDAO {
 		
 		PreparedStatement pstmt = null;
 		try {
-			String query = "INSERT INTO users (username, password, email, registrationDate) VALUES (?, ?, 'x', '2011-11-11')";
+			String query = "INSERT INTO users (username, password, name, lastname, description, email, registrationDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(query);
 			int index = 1;
 			pstmt.setString(index++, user.getUsername());
 			pstmt.setString(index++, user.getPassword());
+			pstmt.setString(index++, user.getName());
+			pstmt.setString(index++, user.getLastname());
+			pstmt.setString(index++, user.getDescription());
+			pstmt.setString(index++, user.getEmail());
+			pstmt.setString(index++, user.getRegistrationDate());
 			
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException e) {
@@ -251,6 +259,67 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
+	
+	
+	
+	
+	public static boolean isSubscribed(String subscriber, String subscribedTo) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			String query = "SELECT * FROM subs WHERE subscriber = ? AND subsribed_to = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, subscriber);
+			pstmt.setString(2, subscribedTo);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {				
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+
+		return false;
+	}
+	
+	
+	
+	
+	
+	public static String dateToStringForWrite(Date date) {
+		SimpleDateFormat formatvr = new SimpleDateFormat("yyyy-MM-dd");
+		String datum;
+		datum = formatvr.format(date);
+		return datum;
+	}
+	
+	public static Date stringToDateForWrite(String datum) {
+		try {
+			DateFormat formatvr = new SimpleDateFormat("yyyy-MM-dd");
+
+			return formatvr.parse(datum);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 
 }

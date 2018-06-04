@@ -1,7 +1,6 @@
 package yt.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class User {
 	
@@ -16,7 +15,7 @@ public class User {
 	private String lastname;
 	private String email;
 	private String description;
-	private Date registrationDate;
+	private String registrationDate;
 	private Role role;
 	private boolean blocked;
 	private boolean deleted;
@@ -33,7 +32,7 @@ public class User {
 	
 	
 	public User(int id, String username, String password, String name, String lastname, String email,
-			String description, Date registrationDate, Role role, boolean blocked, boolean deleted, int subsNumber,
+			String description, String registrationDate, Role role, boolean blocked, boolean deleted, int subsNumber,
 			ArrayList<User> subscribers, ArrayList<Rating> videoLikes, ArrayList<Rating> commentLikes) {
 		super();
 		this.id = id;
@@ -94,10 +93,10 @@ public class User {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getRegistrationDate() {
+	public String getRegistrationDate() {
 		return registrationDate;
 	}
-	public void setRegistrationDate(Date registrationDate) {
+	public void setRegistrationDate(String registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 	public Role getRole() {

@@ -300,7 +300,56 @@ public class VideoDAO {
 	}
 	
 	
-	
+	public static ArrayList<Video> getAllSorted(String sort) {
+		Connection conn = ConnectionManager.getConnection();
+		ArrayList<Video> videos = new ArrayList<Video>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query = "SELECT * FROM videos WHERE deleted = ? ORDER BY " + sort;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, false);
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				int id = rset.getInt("id");
+				String videoURL = rset.getString("videoURL");
+				String videoImg = rset.getString("videoImg");
+				String name = rset.getString("name");
+				String description = rset.getString("description");
+				Visibility visibility = Visibility.valueOf(rset.getString("visibility"));
+				boolean commentsAllowed = rset.getBoolean("commentsAllowed");
+				boolean blocked = rset.getBoolean("blocked");
+				boolean ratingAllowed = rset.getBoolean("ratingAllowed");
+				boolean deleted = rset.getBoolean("deleted");
+				int views = rset.getInt("views");
+				int likes = rset.getInt("likes");
+				int dislikes = rset.getInt("dislikes");
+				Date dateCreated = rset.getDate("dateCreated");
+				String userId = rset.getString("user_id");
+				User user = UserDAO.get(userId);
+				
+				Video video = new Video(id, videoURL, videoImg, name, description, visibility, commentsAllowed, blocked, ratingAllowed, deleted, views, likes, dislikes, dateCreated, user);
+				videos.add(video);
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Greska u SQL upitu!");
+			ex.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return videos;
+	}
 	
 	
 	

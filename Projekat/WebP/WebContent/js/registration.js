@@ -9,6 +9,18 @@ $(document).ready(function(){
 	var lastnameInput = $('#lastnameInput');
 	var descriptionInput = $('#descriptionInput');
 	
+	if(doing == 'edit'){
+		$.get('UserServlet', {'id': 1}, function(data){
+			usernameInput.val(data.loggedInUser.username);
+			passInput.val(data.loggedInUser.username);
+			emailInput.val(data.loggedInUser.email);
+			nameInput.val(data.loggedInUser.name);
+			lastnameInput.val(data.loggedInUser.lastname);
+			descriptionInput.val(data.loggedInUser.description);
+			$("#usernameInput").prop('disabled', true);
+		});
+	}
+	
 	$('#registerbtn').on('click', function(event){
 		var username = usernameInput.val();
 		var password = passInput.val();
