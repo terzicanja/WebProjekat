@@ -31,11 +31,14 @@ public class UserServlet extends HttpServlet {
 		ArrayList<Video> videos = VideoDAO.getVideosByUser(username);
 		System.out.println("parametar za usera je: " + username);
 		
-		if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
-			subs = "notFollowing";
-		}else {
-			subs = "following";
+		if(loggedInUser != null) {
+			if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
+				subs = "notFollowing";
+			}else {
+				subs = "following";
+			}
 		}
+		
 		
 		Map<String, Object> data = new HashMap<>();
 		
@@ -77,11 +80,13 @@ public class UserServlet extends HttpServlet {
 			UserDAO.update(user);
 		}else if(status.equals("follow")) {
 			if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
-				subs = "notFollowing";
 				
-			}else {
+				UserDAO.addSub(loggedInUser.getUsername(), user.getUsername());
 				subs = "following";
+			}else {
 				
+				UserDAO.deleteSub(loggedInUser.getUsername(), user.getUsername());
+				subs = "notFollowing";
 			}
 		}
 		

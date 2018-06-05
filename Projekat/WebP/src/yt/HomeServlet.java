@@ -28,6 +28,11 @@ public class HomeServlet extends HttpServlet {
 		
 		String sort = request.getParameter("sort");
 		List<Video> videos = new ArrayList<>();
+		String status = "";
+		
+		if(loggedInUser == null) {
+			status = "guest";
+		}
 		
 		if(sort.equals("none")) {
 			videos = VideoDAO.getAll();
@@ -54,7 +59,9 @@ public class HomeServlet extends HttpServlet {
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("videos", videos);
+		data.put("loggedInUser", loggedInUser);
 		data.put("topFive", topFive);
+		data.put("status", status);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(data);

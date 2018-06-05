@@ -83,17 +83,27 @@ $(document).ready(function(){
 		}
 		
 		$('#blockbtn').on('click', function(event){
-			console.log('blokiras korisnika');
+			var blocktxt = $(this).text();
+			console.log('blokiras korisnika' + blocktxt);
 			$.post('UserServlet', {'id': id, 'status': 'block'}, function(data){
-				
+				if(blocktxt == 'Blocked'){
+					$('#blockbtn').text('Block');
+				}else if(blocktxt == 'Block'){
+					$('#blockbtn').text('Blocked');
+				}
 			});
 		});
 		
 		
 		$('#deletebtn').on('click', function(event){
+			var deletetxt = $(this).text();
 			console.log('brises korisnika');
 				$.post('UserServlet', {'id': id, 'status': 'delete'}, function(data){
-				
+					if(deletetxt == 'Deleted'){
+						$('#deletebtn').text('Delete');
+					}else if(deletetxt == 'Delete'){
+						$('#deletebtn').text('Deleted');
+					}
 			});
 		});
 		
@@ -101,7 +111,7 @@ $(document).ready(function(){
 		$('#followbtn').on('click', function(event){
 			console.log('pratis korisnika');
 				$.post('UserServlet', {'id': id, 'status': 'follow'}, function(data){
-				
+					location.reload();
 			});
 		});
 		

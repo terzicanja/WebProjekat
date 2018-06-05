@@ -299,6 +299,55 @@ public class UserDAO {
 	}
 	
 	
+	public static boolean addSub(String subscriber, String subscribedTo) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "INSERT INTO subs(subscriber, subsribed_to) VALUES (?, ?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, subscriber);
+			pstmt.setString(2, subscribedTo);
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	public static boolean deleteSub(String subscriber, String subscribedTo) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "DELETE FROM subs WHERE subscriber = ? AND subsribed_to = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, subscriber);
+			pstmt.setString(2, subscribedTo);
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	
 	

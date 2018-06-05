@@ -21,9 +21,9 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT * FROM videos WHERE deleted = ?";
+			String query = "SELECT * FROM videos";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setBoolean(1, false);
+//			pstmt.setBoolean(1, false);
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				int id = rset.getInt("id");
@@ -74,10 +74,10 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT * FROM videos WHERE deleted = ? AND id = ?";
+			String query = "SELECT * FROM videos WHERE id = ?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setBoolean(1, false);
-			pstmt.setInt(2, idVideo);
+//			pstmt.setBoolean(1, false);
+			pstmt.setInt(1, idVideo);
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				int id = rset.getInt("id");
@@ -183,11 +183,11 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT * FROM videos WHERE deleted = ? AND (name LIKE ? OR description LIKE ?)";
+			String query = "SELECT * FROM videos WHERE name LIKE ? OR description LIKE ?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setBoolean(1, false);
+//			pstmt.setBoolean(1, false);
+			pstmt.setString(1, '%'+search+'%');
 			pstmt.setString(2, '%'+search+'%');
-			pstmt.setString(3, '%'+search+'%');
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				int id = rset.getInt("id");
