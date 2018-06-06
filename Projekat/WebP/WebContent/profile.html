@@ -49,6 +49,15 @@
 					<div id="opisKanala">
 						Dobrodosli na moj kanal
 					</div>
+					<div class="dropdown">
+						<button onclick="myFunction()" id="sort" class="dropbtn">Sort</button>
+						<div id="myDropdown" class="dropdown-content">
+							<a href="#sort" id="mostPopular">Most popular</a> 
+							<a href="#sort" id="leastPopular">Least popular</a> 
+							<a href="#sort" id="newest">Newest</a>
+							<a href="#sort" id="oldest">Oldest</a>
+						</div>
+					</div>
 				</div>
 				<div style="width: 100%;background:white;padding: 20px 0;">
 					<div class="recommended">
@@ -173,5 +182,24 @@
 	<footer>
 		<p>Created by Anja Terzic</p>
 	</footer>
+	<script type="text/javascript">
+	function myFunction() {
+	    document.getElementById("myDropdown").classList.toggle("show");
+	}
+	
+	window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+
+		    var dropdowns = document.getElementsByClassName("dropdown-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		}
+	</script>
 </body>
 </html>

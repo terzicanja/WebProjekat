@@ -26,25 +26,61 @@ public class UserServlet extends HttpServlet {
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
 		
 		String username = request.getParameter("id");
+		String sort = request.getParameter("sort");
 		String subs = "";
+		String userStatus = "ok";
 		User user = UserDAO.get(username);
-		ArrayList<Video> videos = VideoDAO.getVideosByUser(username);
+		ArrayList<Video> videos = new ArrayList<>();
+//		ArrayList<Video> videos = VideoDAO.getVideosByUser(username);
 		System.out.println("parametar za usera je: " + username);
 		
 		if(loggedInUser != null) {
+			if(loggedInUser.getUsername().equals(user.getUsername()) || loggedInUser.getRole().toString().equals("ADMIN")) {
+				videos = VideoDAO.getVideosByUser(username);
+			}else if(user.isBlocked() == true){
+				userStatus = "blokiran";
+			}else if(user.isDeleted() == true){
+				userStatus = "obrisan";
+			}else {
+				videos = VideoDAO.getPublicVideosByUser(username);
+			}
+			
 			if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
 				subs = "notFollowing";
-			}else {
+			}else if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == true) {
 				subs = "following";
+			}else if(loggedInUser.getUsername().equals(user.getUsername())) {
+				subs = "nemere";
+			}
+		}else if(loggedInUser == null) {
+			videos = VideoDAO.getPublicVideosByUser(username);
+			
+			if(user.isBlocked() == true) {
+				userStatus = "blokiran";
+			}else if(user.isDeleted() == true) {
+				userStatus = "obrisan";
 			}
 		}
 		
+//		if(sort.equals("none")) {
+//			userStatus = "ok";
+////			videos = VideoDAO.getAll();
+//		}else if(sort.equals("mostPopular")) {
+//			videos = VideoDAO.getAllSorted("views desc");
+//		}else if(sort.equals("leastPopular")) {
+//			videos = VideoDAO.getAllSorted("views asc");
+//		}else if(sort.equals("newest")) {
+//			videos = VideoDAO.getAllSorted("dateCreated desc");
+//		}else if(sort.equals("oldest")) {
+//			videos = VideoDAO.getAllSorted("dateCreated asc");
+//		}
 		
 		Map<String, Object> data = new HashMap<>();
 		
 		data.put("loggedInUser", loggedInUser);
 		data.put("user", user);
 		data.put("subs", subs);
+		data.put("userStatus", userStatus);
 		data.put("videos", videos);
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -79,16 +115,38 @@ public class UserServlet extends HttpServlet {
 			}
 			UserDAO.update(user);
 		}else if(status.equals("follow")) {
-			if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
-				
-				UserDAO.addSub(loggedInUser.getUsername(), user.getUsername());
-				subs = "following";
+			if(loggedInUser.getUsername().equals(user.getUsername())) {
+				subs = "cantFollowYourself";
 			}else {
-				
-				UserDAO.deleteSub(loggedInUser.getUsername(), user.getUsername());
-				subs = "notFollowing";
+				if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
+					
+					UserDAO.addSub(loggedInUser.getUsername(), user.getUsername());
+					user.setSubsNumber(user.getSubsNumber() + 1);
+					UserDAO.update(user);
+					subs = "following";
+				}else {
+					
+					UserDAO.deleteSub(loggedInUser.getUsername(), user.getUsername());
+					user.setSubsNumber(user.getSubsNumber() - 1);
+					UserDAO.update(user);
+					subs = "notFollowing";
+				}
 			}
+			
 		}
+		
+		Map<String, Object> data = new HashMap<>();
+		
+		data.put("loggedInUser", loggedInUser);
+		data.put("user", user);
+		data.put("subs", subs);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(data);
+		System.out.println(json);
+		
+		response.setContentType("application/json");
+		response.getWriter().write(json);
 		
 	}
 

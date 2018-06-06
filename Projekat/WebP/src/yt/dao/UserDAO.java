@@ -77,7 +77,7 @@ public class UserDAO {
 		ResultSet rset = null;
 
 		try {
-			String query = "SELECT * FROM users WHERE username = ? AND deleted = 0";
+			String query = "SELECT * FROM users WHERE username = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, username);
 			// pstmt.setBoolean(2, false);
@@ -136,7 +136,7 @@ public class UserDAO {
 		ResultSet rset = null;
 
 		try {
-			String query = "SELECT * FROM users WHERE deleted = 0 ORDER BY subsNumber desc LIMIT 5";
+			String query = "SELECT * FROM users WHERE deleted = 0 and blocked = 0 ORDER BY subsNumber desc LIMIT 5";
 			
 //			"Select distinct(s.mainUser),count(s.mainUser) as broj,u.deleted from subscribe as s inner join users as u on s.mainUser=u.userName\r\n" + 
 //			"where u.deleted = ?\r\n" + 

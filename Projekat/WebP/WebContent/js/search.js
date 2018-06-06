@@ -1,9 +1,12 @@
 $(document).ready(function(){
 	var current;
 	var search = window.location.search.slice(1).split('&')[0].split('=')[1];
+	var title = window.location.search.slice(1).split('&')[1].split('=')[1];
+	var user = window.location.search.slice(1).split('&')[2].split('=')[1];
+	var comment = window.location.search.slice(1).split('&')[3].split('=')[1];
 	
 	
-	$.get('SearchServlet', {'search': search}, function(data){
+	$.get('SearchServlet', {'search': search, 'title': title, 'user': user, 'comment': comment}, function(data){
 		console.log(data.videos);
 //		$("#myVideo").attr('src', data.video.videoURL);
 //		$("h1").text(data.video.name);

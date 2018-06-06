@@ -25,9 +25,27 @@ public class SearchServlet extends HttpServlet {
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
 		
 		String search = request.getParameter("search");
+		String title = request.getParameter("title");
+		String user = request.getParameter("user");
+		String comment = request.getParameter("comment");
 		System.out.println("parametar jee: " + search);
 		
-		ArrayList<Video> videos = VideoDAO.searchVideos(search);
+		String srchTitle = "";
+		String srchUser = "";
+		String srchComment = "";
+		
+		if(title.equals("true")) {
+			srchTitle = search;
+		}
+		if(user.equals("true")) {
+			srchUser = search;
+		}
+		if(comment.equals("true")) {
+			srchComment = search;
+		}
+		
+//		ArrayList<Video> videos = VideoDAO.searchVideos(search);
+		ArrayList<Video> videos = VideoDAO.searchVideos(search, srchTitle, srchUser, srchComment);
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("videos", videos);

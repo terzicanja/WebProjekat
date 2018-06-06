@@ -5,7 +5,7 @@ $(document).ready(function(){
 //		console.log('ulogovani jeee '+loggedInUser);
 		for(v in data.videos){
 			if(data.loggedInUser == null || (data.loggedInUser.role != 'ADMIN')){
-				if(data.videos[v].visibility == 'PUBLIC' && data.videos[v].deleted == false){
+				if(data.videos[v].visibility == 'PUBLIC' && data.videos[v].deleted == false && data.videos[v].owner.blocked == false && data.videos[v].owner.deleted == false){
 					$('.recommended').append('<div id="videoHome">'+
 							'<div class="thumbnailWrapper">'+
 								'<a href="video.html?id='+ data.videos[v].id +'"><img src="'+data.videos[v].videoImg+'" id="thumbnail"></a>'+
@@ -63,6 +63,28 @@ $(document).ready(function(){
 //						'<div id="foloveri">'+ data.topFive[u].subsNumber +' followers</div><button id="zafoluj">Follow</button></div>');
 //			}
 		});
+		
+	});
+	
+	
+	$('#searchbtn').on('click', function(event){
+		var srchinput = $('.srchinput');
+		var search = srchinput.val();
+		var title = false;
+		var user = false;
+		var comment = false;
+		if($("#cbComment").is(':checked')){
+			comment = "true";
+		}
+		if($("#cbTitle").is(':checked')){
+			title = "true";
+		}
+		if($("#cbUser").is(':checked')){
+			user = "true";
+		}
+		console.log('searchujem po: ' + title + user + comment);
+		
+		window.location.replace('search.html?search='+search+'&title='+title+'&user='+user+'&comment='+comment);
 		
 	});
 	
