@@ -34,33 +34,38 @@ public class UserServlet extends HttpServlet {
 //		ArrayList<Video> videos = VideoDAO.getVideosByUser(username);
 		System.out.println("parametar za usera je: " + username);
 		
-		if(loggedInUser != null) {
-			if(loggedInUser.getUsername().equals(user.getUsername()) || loggedInUser.getRole().toString().equals("ADMIN")) {
-				videos = VideoDAO.getVideosByUser(username);
-			}else if(user.isBlocked() == true){
-				userStatus = "blokiran";
-			}else if(user.isDeleted() == true){
-				userStatus = "obrisan";
-			}else {
+		try {
+			if(loggedInUser != null) {
+				if(loggedInUser.getUsername().equals(user.getUsername()) || loggedInUser.getRole().toString().equals("ADMIN")) {
+					videos = VideoDAO.getVideosByUser(username);
+				}else if(user.isBlocked() == true){
+					userStatus = "blokiran";
+				}else if(user.isDeleted() == true){
+					userStatus = "obrisan";
+				}else {
+					videos = VideoDAO.getPublicVideosByUser(username);
+				}
+				
+				if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
+					subs = "notFollowing";
+				}else if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == true) {
+					subs = "following";
+				}else if(loggedInUser.getUsername().equals(user.getUsername())) {
+					subs = "nemere";
+				}
+			}else if(loggedInUser == null) {
 				videos = VideoDAO.getPublicVideosByUser(username);
+				
+				if(user.isBlocked() == true) {
+					userStatus = "blokiran";
+				}else if(user.isDeleted() == true) {
+					userStatus = "obrisan";
+				}
 			}
-			
-			if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == false) {
-				subs = "notFollowing";
-			}else if(UserDAO.isSubscribed(loggedInUser.getUsername(), user.getUsername()) == true) {
-				subs = "following";
-			}else if(loggedInUser.getUsername().equals(user.getUsername())) {
-				subs = "nemere";
-			}
-		}else if(loggedInUser == null) {
-			videos = VideoDAO.getPublicVideosByUser(username);
-			
-			if(user.isBlocked() == true) {
-				userStatus = "blokiran";
-			}else if(user.isDeleted() == true) {
-				userStatus = "obrisan";
-			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 		
 //		if(sort.equals("none")) {
 //			userStatus = "ok";

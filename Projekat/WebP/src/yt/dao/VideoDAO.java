@@ -238,11 +238,11 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT * FROM videos WHERE name LIKE ? OR user_id LIKE ?";
+			String query = "SELECT * FROM videos WHERE "+title+userr;
 			pstmt = conn.prepareStatement(query);
 //			pstmt.setBoolean(1, false);
-			pstmt.setString(1, '%'+title+'%');
-			pstmt.setString(2, '%'+userr+'%');
+			pstmt.setString(1, '%'+search+'%');
+			pstmt.setString(2, '%'+search+'%');
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				int id = rset.getInt("id");
@@ -333,7 +333,10 @@ public class VideoDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, video.getName());
 			pstmt.setString(2, video.getVideoURL());
-			pstmt.setString(3, "smaras");
+			if(video.getVideoImg() != null) {
+				pstmt.setString(3, video.getVideoImg());
+			}
+			pstmt.setString(3, "https://i.ytimg.com/vi/6ItdYJaQOjQ/maxresdefault.jpg");
 			pstmt.setString(4, video.getDescription());
 //			pstmt.setString(4, video.getVisibility().toString());
 			pstmt.setBoolean(5, video.isCommentsAllowed());

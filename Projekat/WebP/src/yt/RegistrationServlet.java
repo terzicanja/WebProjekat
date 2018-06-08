@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import yt.dao.UserDAO;
 import yt.model.User;
+import yt.model.User.Role;
 
 public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +37,18 @@ public class RegistrationServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String lastname = request.getParameter("lastname");
 		String description = request.getParameter("description");
+		String role = request.getParameter("role");
+		boolean blocked = Boolean.parseBoolean(request.getParameter("blocked"));
+		boolean deleted = Boolean.parseBoolean(request.getParameter("deleted"));
+		Role r;
+		if(role.equals("USER")) {
+			r = Role.USER;
+		}
+		else if(role.equals("ADMIN")) {
+			r = Role.ADMIN;
+		}else {
+			r = Role.USER;
+		}
 		String status = "success";
 		
 		User u = UserDAO.get(username);
@@ -69,14 +82,27 @@ public class RegistrationServlet extends HttpServlet {
 			
 		}else if(doing.equals("edit")) {
 			User korisnik = UserDAO.get(id);
-			korisnik.setPassword(password);
-			korisnik.setName(name);
-			korisnik.setLastname(lastname);
-			korisnik.setDescription(description);
-			korisnik.setEmail(email);
+			if(loggedInUser == null) {
+				status = "notLoggedIn";
+			}else if(loggedInUser.getRole().toString().equals("USER") && !loggedInUser.getUsername().equals(korisnik.getUsername())) {
+				status = "cannot";
+			}else {
+				korisnik.setPassword(password);
+				korisnik.setName(name);
+				korisnik.setLastname(lastname);
+				korisnik.setDescription(description);
+				korisnik.setEmail(email);
+				
+				if(loggedInUser.getRole().toString().equals("ADMIN")) {
+					korisnik.setRole(r);
+					korisnik.setBlocked(blocked);
+					korisnik.setDeleted(deleted);
+				}
+				
+				UserDAO.update(korisnik);
+				status = "success";
+			}
 			
-			UserDAO.update(korisnik);
-			status = "edited";
 			
 		}
 		Map<String, Object> data = new HashMap<>();

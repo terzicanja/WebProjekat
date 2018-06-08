@@ -35,10 +35,13 @@ public class SearchServlet extends HttpServlet {
 		String srchComment = "";
 		
 		if(title.equals("true")) {
-			srchTitle = search;
+			srchTitle = "name LIKE ?";
 		}
 		if(user.equals("true")) {
-			srchUser = search;
+			srchUser = "user_id LIKE ?";
+			if(title.equals("true") && user.equals("true")) {
+				srchUser = "OR user_id LIKE ?";
+			}
 		}
 		if(comment.equals("true")) {
 			srchComment = search;

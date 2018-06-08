@@ -78,6 +78,7 @@ public class VideoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedInUser = (User) session.getAttribute("loggedInUser");
 		
+		String status = "";
 		int id = Integer.parseInt(request.getParameter("id"));
 		String doing = request.getParameter("doing");
 		String url = request.getParameter("url");
@@ -97,15 +98,20 @@ public class VideoServlet extends HttpServlet {
 		System.out.println("description: " + description);
 		
 		if(doing.equals("add")) {
-			Video v = new Video();
-			v.setVideoURL(url);
-			v.setName(name);
-			v.setDescription(description);
-//			v.setVisibility(visi);
-			v.setCommentsAllowed(comments);
-			v.setRatingAllowed(rating);
-			v.setOwner(loggedInUser);
-			VideoDAO.create(v);
+			if(loggedInUser == null) {
+				status = "notLoggedIn";
+			}else {
+				Video v = new Video();
+				v.setVideoURL(url);
+				v.setName(name);
+				v.setDescription(description);
+//				v.setVisibility(visi);
+				v.setCommentsAllowed(comments);
+				v.setRatingAllowed(rating);
+				v.setOwner(loggedInUser);
+				VideoDAO.create(v);
+			}
+			
 			
 			Map<String, Object> data = new HashMap<>();
 			data.put("status", "success");
@@ -115,7 +121,7 @@ public class VideoServlet extends HttpServlet {
 
 			response.setContentType("application/json");
 			response.getWriter().write(jsonData);
-		} else {
+		} else if(doing.equals("edit")) {
 			Video video = VideoDAO.getVideo(id);
 //			video.setVideoURL(url);
 			video.setName(name);
@@ -134,6 +140,10 @@ public class VideoServlet extends HttpServlet {
 
 			response.setContentType("application/json");
 			response.getWriter().write(jsonData);
+		} else if(doing.equals("delete")) {
+			Video video = VideoDAO.getVideo(id);
+			video.setDeleted(true);
+			VideoDAO.update(video);
 		}
 		
 		

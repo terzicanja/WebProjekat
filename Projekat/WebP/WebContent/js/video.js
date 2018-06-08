@@ -119,6 +119,14 @@ $(document).ready(function(){
 			window.location.replace('add.html?doing=edit&id='+id);
 		});
 		
+		$('#deleteVideo').on('click', function(event){
+//			window.location.replace('add.html?doing=edit&id='+id);
+			
+			$.post('VideoServlet', {'id':id, 'doing':'delete', 'url':'url', 'name':'name', 'description':'description', 'visibility':'visibility', 'comments':'comments', 'rating':'rating'}, function(data){
+				
+			});
+		});
+		
 		
 		$('#likeComment').on('click', function(event){
 			var commentId = $(this).attr('class');
@@ -176,7 +184,7 @@ $(document).ready(function(){
 	
 	
 	$('#like').on('click', function(event){
-		$.get('RatingServlet', {'id': id, 'what': 'video'}, function(data){
+		$.get('RatingServlet', {'id': id, 'commentId': '0', 'what': 'video'}, function(data){
 			$("#brojLajkova").text(data.numberOfLikes);
 			$("#brojDislajkova").text(data.numberOfDislikes);
 			console.log(status);
@@ -199,7 +207,7 @@ $(document).ready(function(){
 	});
 	
 	$('#dislike').on('click', function(event){
-		$.post('RatingServlet', {'id': id, 'what': 'video'}, function(data){
+		$.post('RatingServlet', {'id': id, 'commentId': '0', 'what': 'video'}, function(data){
 			$("#brojDislajkova").text(data.numberOfDislikes);
 			$("#brojLajkova").text(data.numberOfLikes);
 			console.log(status);

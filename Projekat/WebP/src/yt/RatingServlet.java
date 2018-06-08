@@ -86,6 +86,13 @@ public class RatingServlet extends HttpServlet {
 						status = "commentLiked";
 					}
 				}
+				
+				int commentLikes = RatingDAO.getCountCommentLikes(commentId);
+				int commentDislikes = RatingDAO.getCountCommentDislikes(commentId);
+				comment.setLikesNumber(commentLikes);
+				comment.setDislikesNumber(commentDislikes);
+				CommentDAO.updateComment(comment);
+				
 			}
 			
 			
@@ -95,14 +102,14 @@ public class RatingServlet extends HttpServlet {
 		
 		int numberOfLikes = RatingDAO.getCountVideoLikes(id);
 		int numberOfDislikes = RatingDAO.getCountVideoDislikes(id);
-		int commentLikes = RatingDAO.getCountCommentLikes(commentId);
-		int commentDislikes = RatingDAO.getCountCommentDislikes(commentId);
+//		int commentLikes = RatingDAO.getCountCommentLikes(commentId);
+//		int commentDislikes = RatingDAO.getCountCommentDislikes(commentId);
 		video.setLikes(numberOfLikes);
 		video.setDislikes(numberOfDislikes);
 		VideoDAO.update(video);
-		comment.setLikesNumber(commentLikes);
-		comment.setDislikesNumber(commentDislikes);
-		CommentDAO.updateComment(comment);
+//		comment.setLikesNumber(commentLikes);
+//		comment.setDislikesNumber(commentDislikes);
+//		CommentDAO.updateComment(comment);
 		System.out.println(status);
 		
 		Map<String, Object> data = new HashMap<>();

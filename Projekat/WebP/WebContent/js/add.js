@@ -22,7 +22,9 @@ $(document).ready(function(){
 			console.log('submitttttt');
 			
 			$.post('VideoServlet', {'id':id, 'doing':doing, 'url':url, 'name':name, 'description':description, 'visibility':visibility, 'comments':comments, 'rating':rating}, function(data){
-				
+				if(data.loggedInUser == null){
+					alert('u cant do this');
+				}
 			});
 			
 		});

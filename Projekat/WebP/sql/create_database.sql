@@ -28,7 +28,7 @@ CREATE TABLE videos (
 	id INT AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
 	videoURL VARCHAR(100) NOT NULL,
-	videoImg VARCHAR(100) NOT NULL,
+	videoImg VARCHAR(300) DEFAULT 'https://i.ytimg.com/vi/6ItdYJaQOjQ/maxresdefault.jpg',
 	description VARCHAR(1000),
 	visibility ENUM('PUBLIC', 'UNLISTED', 'PRIVATE') NOT NULL DEFAULT 'PUBLIC',
 	commentsAllowed BOOLEAN DEFAULT true,
@@ -94,15 +94,19 @@ INSERT INTO users (username, password, name, lastname, email, registrationDate, 
 INSERT INTO users (username, password, name, lastname, email, registrationDate, role) VALUES ('e', 'e', 'ee', 'ee', 'a@mail', '1.1.2000', 'USER');
 INSERT INTO users (username, password, name, lastname, email, registrationDate, role) VALUES ('f', 'f', 'ff', 'ff', 'a@mail', '1.1.2000', 'USER');
 INSERT INTO users (username, password, name, lastname, email, registrationDate, role) VALUES ('g', 'g', 'gg', 'gg', 'a@mail', '1.1.2000', 'USER');
+INSERT INTO users (username, password, name, lastname, email, registrationDate, role, blocked) VALUES ('blok', 'b', 'blokiran', 'bbb', 'a@mail', '1.1.2000', 'USER', 1);
+INSERT INTO users (username, password, name, lastname, email, registrationDate, role, deleted) VALUES ('del', 'd', 'obrisan', 'ddd', 'a@mail', '1.1.2000', 'USER', 1);
 
 
-INSERT INTO videos (name, videoURL, videoImg, description, visibility, user_id) VALUES 
-	('Inglourious Basterds - Italian scene', 'https://www.youtube.com/embed/krtnt191Drg', 'https://img.youtube.com/vi/EGuiXTUQeH4/0.jpg', 'A scene from the movie Inglorious Basterds when 3 Americans come to German movie premiere and try to speak Italian.', 'PUBLIC', 'c'),
-	('Samsung Galaxy: Growing Up', 'https://www.youtube.com/embed/R59TevgzN3k', 'https://img.youtube.com/vi/vmDDOFXSgAs/0.jpg', '', 'UNLISTED', 'c'),
-	('THE RUBY PLAYBUTTON / YouTube 50 Mil Sub Reward Unbox', 'https://www.youtube.com/embed/7Vj5M0qKh8g', 'https://img.youtube.com/vi/Hrr3dp7zRQY/0.jpg', 'Unboxing the 50 mil sub reward ruby playbutton.', 'PRIVATE', 'c'),
-	('The Doors - L. A. Woman', 'https://www.youtube.com/embed/JskztPPSJwY', 'https://img.youtube.com/vi/JskztPPSJwY/0.jpg', '', 'PUBLIC', 'c'),
-	('Wu-Tang Clan - Forever FULL ALBUM', 'https://www.youtube.com/embed/5CzsXvAZ6R4', 'https://img.youtube.com/vi/5CzsXvAZ6R4/0.jpg', '', 'PUBLIC', 'e'),
-	('Bob Marley - I Shot The Sheriff', 'https://www.youtube.com/embed/2XiYUYcpsT4', 'https://img.youtube.com/vi/2XiYUYcpsT4/0.jpg', '', 'PUBLIC', 'g');
+INSERT INTO videos (name, videoURL, videoImg, description, visibility, user_id, deleted) VALUES 
+	('public video', 'https://www.youtube.com/embed/krtnt191Drg', 'https://i.ytimg.com/vi/bDY5SK4SE-g/maxresdefault.jpg', 'A scene from the movie Inglorious Basterds when 3 Americans come to German movie premiere and try to speak Italian.', 'PUBLIC', 'c', 0),
+	('unlisted video', 'https://www.youtube.com/embed/R59TevgzN3k', 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/yRF5c-O/traditional-and-classic-sunburst-or-starburst-background-green-4k-and-full-hd_njhnts86__F0000.png', '', 'UNLISTED', 'c', 0),
+	('private video', 'https://www.youtube.com/embed/7Vj5M0qKh8g', 'http://backgroundcheckall.com/wp-content/uploads/2017/12/mavi-background-tumblr-4.jpg', 'Unboxing the 50 mil sub reward ruby playbutton.', 'PRIVATE', 'c', 0),
+	('public', 'https://www.youtube.com/embed/OMJCsytmfnw', 'https://i.ytimg.com/vi/0lqN_v5ljlA/maxresdefault.jpg', '', 'PUBLIC', 'c', 0),
+	('public', 'https://www.youtube.com/embed/A7eb1DHZ9GQ', 'https://i.ytimg.com/vi/R3unPcJDbCc/mqdefault.jpg', '', 'PUBLIC', 'e', 0),
+    ('video blokiranog korisnika', 'https://www.youtube.com/embed/xTlNMmZKwpA', 'hhttps://i.ytimg.com/vi/54Scxs8u1gk/maxresdefault.jpg', '', 'PUBLIC', 'blok', 0),
+    ('video obrisanog korisnika', 'https://www.youtube.com/embed/_BcYBFC6zfY', 'https://i.ytimg.com/vi/0lqN_v5ljlA/maxresdefault.jpg', '', 'PUBLIC', 'del', 0),
+	('deleted', 'https://www.youtube.com/embed/2XiYUYcpsT4', 'http://backgroundcheckall.com/wp-content/uploads/2017/12/triangles-background-2.jpg', '', 'PUBLIC', 'g', 1);
 
 
 INSERT INTO comments (content, author, videoId) VALUES ('komentar 1', 'f', 2);

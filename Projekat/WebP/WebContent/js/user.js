@@ -22,7 +22,7 @@ $(document).ready(function(){
 			for(v in data.videos){
 				$('.recommended').append('<div id="videoHome">'+
 						'<div class="thumbnailWrapper">'+
-							'<a href="video.html?id='+data.videos[v].id+'"><img src="images/thumbnail.jpg" id="thumbnail"></a>'+
+							'<a href="video.html?id='+data.videos[v].id+'"><img src="'+data.videos[v].videoImg+'" id="thumbnail"></a>'+
 						'</div>'+
 						'<a href="video.html?id='+data.videos[v].id+'" id="naslov">'+data.videos[v].name+'</a>'+
 						'<a href="profile.html" id="user">'+data.videos[v].owner.username+'</a>'+

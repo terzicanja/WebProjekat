@@ -23,12 +23,12 @@ $(document).ready(function(){
 			$('#searched').append('<div id="videoHome">'+
 					'<div id="zaThumb">'+
 					'<div class="thumbnailWrapper">'+
-						'<a href="video.html"><img src="images/thumbnail.jpg" id="thumbnail"></a>'+
+						'<a href="video.html?id='+data.videos[c].id+'"><img src="'+data.videos[c].videoImg+'" id="thumbnail"></a>'+
 					'</div>'+
 				'</div>'+
-				'<a href="video.html" id="naslovRecomm"><b>'+data.videos[c].name+'</b></a><br>'+
-				'<a href="profile.html" id="userRecomm">pero</a>'+
-				'<span id="viewsRecomm">1000 views</span>'+
+				'<a href="video.html?id='+data.videos[c].id+'" id="naslovRecomm"><b>'+data.videos[c].name+'</b></a><br>'+
+				'<a href="profile.html?id='+data.videos[c].owner.username+'" id="userRecomm">'+data.videos[c].owner.username+'</a>'+
+				'<span id="viewsRecomm">'+data.videos[c].views+' views</span>'+
 				'<span id="dateRecomm">06.02.2018.</span>'+
 			'</div>');
 		}
