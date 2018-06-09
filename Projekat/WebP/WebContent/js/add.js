@@ -2,6 +2,7 @@ $(document).ready(function(){
 	var doing = window.location.search.slice(1).split('&')[0].split('=')[1];
 	var id = window.location.search.slice(1).split('&')[1].split('=')[1];
 	var urlInput = $('#urlInput');
+	var imgInput = $('#imgInput');
 	var nameInput = $('#nameInput');
 	var descriptionInput = $('#descriptionInput');
 	var v = $('input[name=visi]:checked');
@@ -14,6 +15,7 @@ $(document).ready(function(){
 		console.log('ovo je dodavanje');
 		$('#addbtn').on('click', function(event){
 			var url = urlInput.val();
+			var img = imgInput.val();
 			var name = nameInput.val();
 			var description = descriptionInput.val();
 			var visibility = v.val();
@@ -21,10 +23,10 @@ $(document).ready(function(){
 			var rating = r.val();
 			console.log('submitttttt');
 			
-			$.post('VideoServlet', {'id':id, 'doing':doing, 'url':url, 'name':name, 'description':description, 'visibility':visibility, 'comments':comments, 'rating':rating}, function(data){
-				if(data.loggedInUser == null){
-					alert('u cant do this');
-				}
+			$.post('VideoServlet', {'id':id, 'doing':doing, 'url':url, 'img':img, 'name':name, 'description':description, 'visibility':visibility, 'comments':comments, 'rating':rating}, function(data){
+//				if(data.loggedInUser == null){
+//					alert('u cant do this');
+//				}
 			});
 			
 		});
@@ -38,13 +40,14 @@ $(document).ready(function(){
 			$('#addbtn').on('click', function(event){
 				console.log('editttt');
 				var url = urlInput.val();
+				var img = imgInput.val();
 				var name = nameInput.val();
 				var description = descriptionInput.val();
 				var visibility = v.val();
 				var comments = c.val();
 				var rating = r.val();
 				
-				$.post('VideoServlet', {'id':id, 'doing':doing, 'url':url, 'name':name, 'description':description, 'visibility':visibility, 'comments':comments, 'rating':rating}, function(data){
+				$.post('VideoServlet', {'id':id, 'doing':doing, 'url':url, 'img': img, 'name':name, 'description':description, 'visibility':visibility, 'comments':comments, 'rating':rating}, function(data){
 					
 				});
 				

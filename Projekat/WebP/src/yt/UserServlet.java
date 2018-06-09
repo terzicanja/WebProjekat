@@ -31,6 +31,7 @@ public class UserServlet extends HttpServlet {
 		String userStatus = "ok";
 		User user = UserDAO.get(username);
 		ArrayList<Video> videos = new ArrayList<>();
+		ArrayList<User> subscribedTo = UserDAO.subscribedTo(username);
 //		ArrayList<Video> videos = VideoDAO.getVideosByUser(username);
 		System.out.println("parametar za usera je: " + username);
 		
@@ -85,6 +86,7 @@ public class UserServlet extends HttpServlet {
 		data.put("loggedInUser", loggedInUser);
 		data.put("user", user);
 		data.put("subs", subs);
+		data.put("subscribedTo", subscribedTo);
 		data.put("userStatus", userStatus);
 		data.put("videos", videos);
 		

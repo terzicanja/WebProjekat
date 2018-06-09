@@ -31,10 +31,19 @@ $(document).ready(function(){
 					'</div>');
 			}
 			
+			for(s in data.subscribedTo){
+				$('#following').append('<div id="osoba">'+
+						'<div id="korisnickoIme">'+data.subscribedTo[s].username+'</div>'+
+						'<div id="foloveri">'+data.subscribedTo[s].subsNumber+' followers</div>'+
+						'<button id="zafoluj">Follow</button>'+
+					'</div>');
+			}
+			
 			
 			if(data.loggedInUser == null || data.loggedInUser.role != 'ADMIN'){
 				$('#blockbtn').css('display', 'none');
 				$('#deletebtn').css('display', 'none');
+				$('#editbtn').css('display', 'none');
 			}
 			
 			if(data.subs == 'following'){
@@ -61,6 +70,7 @@ $(document).ready(function(){
 			
 			if (data.loggedInUser.username == data.user.username){
 				$('#followbtn').css('visibility', 'hidden');
+				$('#editbtn').show();
 				
 //				for(v in data.videos){
 //					$('.recommended').append('<div id="videoHome">'+
@@ -128,9 +138,17 @@ $(document).ready(function(){
 				});
 			});
 			
+			
+			$('#editbtn').on('click', function(event){
+				window.location.replace('register.html?doing=edit&id='+data.user.username+'');
+			});
+			
+			
+			
+			
+			
+			
 		}
-		
-		
 		
 		
 	});

@@ -348,6 +348,45 @@ public class UserDAO {
 	}
 	
 	
+	public static ArrayList<User> subscribedTo(String username){
+		Connection conn = ConnectionManager.getConnection();
+		ArrayList<User> subs = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			String query = "SELECT subsribed_to FROM subs WHERE subscriber = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, username);
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				String subscribedTo = rset.getString("subsribed_to");
+				
+				User user = get(subscribedTo);
+				subs.add(user);
+			}
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return subs;
+	}
+	
+	
+	
+	
 	
 	
 	

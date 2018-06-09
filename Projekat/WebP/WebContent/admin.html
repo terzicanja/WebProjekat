@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/stil.css">
 	<link rel="stylesheet" type="text/css" href="css/admin.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -9,6 +10,7 @@
 	<script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/admin.js"></script>
+	<script src="js/login.js"></script>
 	<!--<script src="js/login.js"></script>-->
 	<title>Admin</title>
 </head>
@@ -17,7 +19,7 @@
 		<div id="header">
 			<a href="#"><i class="material-icons" id="menubtn">menu</i></a>
 			<a href="home.html"><img src="images/logoo.png" id="logo"></a>
-			<div id="sign"><a href="register.html" id="register">Register</a><span>/</span><a href="login.html" id="signin">Sign in</a></div>
+			<div id="sign"></div>
 			<a href="#"><img src="images/profile.png" id="profilbtn"></a>
 			<div class="searchbar">
 				<input type="search" placeholder='Search...' class='srchinput'></input>
@@ -41,86 +43,6 @@
 			
 			<table id="users" style="width: 88%;margin: auto;">
 			<tbody></tbody>
-				<tr>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-				</tr>
-				<tr>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-				</tr>
-				<tr>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-				</tr>
-				<tr>
-					<td><div id="user"> <button id="delete"  onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-					<td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>
-						<a href="#">ivani</a>
-						<p><span>Ivan</span> <span>Ivanovic</span></p> <button id="edit"><i class="material-icons">mode_edit</i></button>
-						<p>ivan@gmail.com</p>
-						<p>admin</p>
-					</div></td>
-				</tr>
 			</table>
 		<script>
 			//$('#delete').click(function(e){

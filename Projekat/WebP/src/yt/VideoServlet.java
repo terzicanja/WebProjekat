@@ -82,6 +82,7 @@ public class VideoServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String doing = request.getParameter("doing");
 		String url = request.getParameter("url");
+		String img = request.getParameter("img");
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String visibility = request.getParameter("visibility");
@@ -103,6 +104,7 @@ public class VideoServlet extends HttpServlet {
 			}else {
 				Video v = new Video();
 				v.setVideoURL(url);
+				v.setVideoImg(img);
 				v.setName(name);
 				v.setDescription(description);
 //				v.setVisibility(visi);
@@ -124,6 +126,7 @@ public class VideoServlet extends HttpServlet {
 		} else if(doing.equals("edit")) {
 			Video video = VideoDAO.getVideo(id);
 //			video.setVideoURL(url);
+			video.setVideoImg(img);
 			video.setName(name);
 			video.setDescription(description);
 //			video.setVisibility(visi);

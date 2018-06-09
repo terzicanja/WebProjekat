@@ -7,17 +7,27 @@ $(document).ready(function(){
 		var loggedInUser = data.loggedInUser;
 		var users = data.users;
 		
-		if(loggedInUser == null || loggedInUser.role != 'ADMIN'){
+		if(loggedInUser == null || loggedInUser.role != 'ADMIN' || data.status == 'neMoze'){
 			$('#users').empty();
             $('#users').html("<p>Ne mozete pristupiti ovoj stranici</p>");
 		} else {
 			for(u in users){
-//				$('#users').append('<tr><td><div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>'+
-//						'<a href="#">'+users[u].username +'</a><p><span>'+data.users[u].name +'</span> <span>'+data.users[u].lastname +'</span></p>'+
-//						' <button id="edit"><i class="material-icons">mode_edit</i></button>'+
-//						'<p>'+data.users[u].email +'</p>'+
-//						'<p>'+data.users[u].role +'</p>'+
-//						'</div></td></tr>');
+				$('#users').append('<tr>'+
+					'<td><div id="user">'+
+						'<a href="profile.html?id='+users[u].username +'">'+users[u].username +'</a>'+
+						'<p><span>'+users[u].name +'</span> <span>'+users[u].lastname +'</span></p>'+
+						'<p>'+users[u].email +'</p>'+
+					'</div></td>'+
+					'<td><div id="user">'+
+						'<p>Reg. date: '+users[u].registrationDate +'</p>'+
+						'<p>Deleted: '+users[u].deleted +'</p>'+
+						'<p>Blocked: '+users[u].blocked +'</p>'+
+					'</div></td>'+
+					'<td><div id="user">'+
+						'<p>Role: '+users[u].role +'</p>'+
+						'<p>Subs number: '+users[u].subsNumber +'</p>'+
+					'</div></td>'+
+				'</tr>');
 				
 //				$('.container').append('<div id="user"> <button id="delete" onclick="potvrda()"><i class="material-icons">delete</i></button>'+
 //						+'<a href="#">'+data.users[u].username +'</a>'+
@@ -25,25 +35,25 @@ $(document).ready(function(){
 //						+'<p>'+data.users[u].email +'</p>'+
 //						+'<p>'+data.users[u].role +'</p>'+
 //						+'</div>');
-				if(users[u].deleted === true){
-					$('#users').append('<tr><td><div id="user"> <button id="delete" style="background-color:red;" onclick="potvrda()"><i class="material-icons">delete</i></button>'+
-							'<a href="#">'+users[u].username +'</a><p><span>'+data.users[u].name +'</span> <span>'+data.users[u].lastname +'</span></p>'+
-							' <button id="edit"><i class="material-icons">mode_edit</i></button>'+
-							'<p>'+data.users[u].email +'</p>'+
-							'<p>Blocked: '+data.users[u].blocked +'</p>'+
-							'<p>Deleted: '+data.users[u].deleted +'</p>'+
-							'<p>'+data.users[u].role +'</p>'+
-							'</div></td></tr>');
-				}else{
-					$('#users').append('<tr><td><div id="user"> <button id="delete" style="background-color:green;""><i class="material-icons">delete</i></button>'+
-							'<a href="profile.html?id='+users[u].username+'">'+users[u].username +'</a><p><span>'+data.users[u].name +'</span> <span>'+data.users[u].lastname +'</span></p>'+
-							' <button id="edit"><i class="material-icons">mode_edit</i></button>'+
-							'<p>'+data.users[u].email +'</p>'+
-							'<p>Blocked: '+data.users[u].blocked +'</p>'+
-							'<p>Deleted: '+data.users[u].deleted +'</p>'+
-							'<p>'+data.users[u].role +'</p>'+
-							'</div></td></tr>');
-				}
+//				if(users[u].deleted === true){
+//					$('#users').append('<tr><td><div id="user"> <button id="delete" style="background-color:red;" onclick="potvrda()"><i class="material-icons">delete</i></button>'+
+//							'<a href="#">'+users[u].username +'</a><p><span>'+data.users[u].name +'</span> <span>'+data.users[u].lastname +'</span></p>'+
+//							' <button id="edit"><i class="material-icons">mode_edit</i></button>'+
+//							'<p>'+data.users[u].email +'</p>'+
+//							'<p>Blocked: '+data.users[u].blocked +'</p>'+
+//							'<p>Deleted: '+data.users[u].deleted +'</p>'+
+//							'<p>'+data.users[u].role +'</p>'+
+//							'</div></td></tr>');
+//				}else{
+//					$('#users').append('<tr><td><div id="user"> <button id="delete" style="background-color:green;""><i class="material-icons">delete</i></button>'+
+//							'<a href="profile.html?id='+users[u].username+'">'+users[u].username +'</a><p><span>'+data.users[u].name +'</span> <span>'+data.users[u].lastname +'</span></p>'+
+//							' <button id="edit"><i class="material-icons">mode_edit</i></button>'+
+//							'<p>'+data.users[u].email +'</p>'+
+//							'<p>Blocked: '+data.users[u].blocked +'</p>'+
+//							'<p>Deleted: '+data.users[u].deleted +'</p>'+
+//							'<p>'+data.users[u].role +'</p>'+
+//							'</div></td></tr>');
+//				}
 				
 			}
 			

@@ -18,7 +18,7 @@
     margin-bottom: 5px;
 }
 
-#followbtn, #deletebtn, #blockbtn{
+#followbtn, #deletebtn, #blockbtn, #editbtn{
     display: inline-block;
     margin-left: 65px;
     margin-bottom: 15px;
