@@ -365,9 +365,9 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT * FROM videos WHERE deleted = ? ORDER BY " + sort;
+			String query = "SELECT * FROM videos ORDER BY " + sort;
 			pstmt = conn.prepareStatement(query);
-			pstmt.setBoolean(1, false);
+//			pstmt.setBoolean(1, false);
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				int id = rset.getInt("id");

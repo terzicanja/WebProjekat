@@ -46,15 +46,29 @@ $(document).ready(function(){
 		$.get('HomeServlet', {'sort': sort}, function(data){
 			console.log(data);
 			for(v in data.videos){
-				$('.recommended').append('<div id="videoHome">'+
-						'<div class="thumbnailWrapper">'+
-							'<a href="video.html?id='+ data.videos[v].id +'"><img src="'+data.videos[v].videoImg+'" id="thumbnail"></a>'+
-						'</div>'+
-						'<a href="video.html?id='+ data.videos[v].id +'" id="naslov">' + data.videos[v].name + '</a>'+
-						'<a href="profile.html?id='+ data.videos[v].owner.username +'" id="user">'+ data.videos[v].owner.username +'</a>'+
-						'<span id="views">'+ data.videos[v].views +' views</span>'+
-						'<span id="date">'+ data.videos[v].date +'</span>'+
-					'</div>')
+				if(data.loggedInUser == null || (data.loggedInUser.role != 'ADMIN')){
+					if(data.videos[v].visibility == 'PUBLIC' && data.videos[v].deleted == false && data.videos[v].owner.blocked == false && data.videos[v].owner.deleted == false){
+						$('.recommended').append('<div id="videoHome">'+
+								'<div class="thumbnailWrapper">'+
+									'<a href="video.html?id='+ data.videos[v].id +'"><img src="'+data.videos[v].videoImg+'" id="thumbnail"></a>'+
+								'</div>'+
+								'<a href="video.html?id='+ data.videos[v].id +'" id="naslov">' + data.videos[v].name + '</a>'+
+								'<a href="profile.html?id='+ data.videos[v].owner.username +'" id="user">'+ data.videos[v].owner.username +'</a>'+
+								'<span id="views">'+ data.videos[v].views +' views</span>'+
+								'<span id="date">'+ data.videos[v].date +'</span>'+
+							'</div>')
+					}
+				}else if(data.loggedInUser.role == 'ADMIN'){
+					$('.recommended').append('<div id="videoHome">'+
+							'<div class="thumbnailWrapper">'+
+								'<a href="video.html?id='+ data.videos[v].id +'"><img src="'+data.videos[v].videoImg+'" id="thumbnail"></a>'+
+							'</div>'+
+							'<a href="video.html?id='+ data.videos[v].id +'" id="naslov">' + data.videos[v].name + '</a>'+
+							'<a href="profile.html?id='+ data.videos[v].owner.username +'" id="user">'+ data.videos[v].owner.username +'</a>'+
+							'<span id="views">'+ data.videos[v].views +' views</span>'+
+							'<span id="date">'+ data.videos[v].date +'</span>'+
+						'</div>')
+				}
 			}
 			
 //			for(u in data.topFive){

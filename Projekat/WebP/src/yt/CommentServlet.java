@@ -1,11 +1,17 @@
 package yt;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import yt.dao.CommentDAO;
 import yt.dao.VideoDAO;
@@ -29,14 +35,25 @@ public class CommentServlet extends HttpServlet {
 		System.out.println("parametar videa je: " + id);
 		Video video = VideoDAO.getVideo(id);
 		
+		String commentsAllowed = "";
+		if(video.isCommentsAllowed()) {
+			commentsAllowed = "yes";
+		}else {
+			commentsAllowed = "no";
+		}
+		
 		if(status.equals("add")) {
 			if(loggedInUser!=null && !loggedInUser.isBlocked()) {
-				String content = request.getParameter("content");
-				Comment comment = new Comment();
-				comment.setContent(content);
-				comment.setAuthor(loggedInUser);
-				comment.setVideo(video);
-				CommentDAO.addComment(comment);
+				if(commentsAllowed.equals("yes")) {
+					String content = request.getParameter("content");
+					Comment comment = new Comment();
+					comment.setContent(content);
+					comment.setAuthor(loggedInUser);
+					comment.setVideo(video);
+					CommentDAO.addComment(comment);
+				}else {
+					commentsAllowed = "no";
+				}
 			}
 		}else if(status.equals("delete")) {
 			System.out.println("ok aj sad jedan");
@@ -60,7 +77,18 @@ public class CommentServlet extends HttpServlet {
 		}
 		
 		
-		
+		Map<String, Object> data = new HashMap<>();
+		data.put("video", video);
+		data.put("status", status);
+		data.put("commentsAllowed", commentsAllowed);
+		data.put("loggedInUser", loggedInUser);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(data);
+		System.out.println(json);
+
+		response.setContentType("application/json");
+		response.getWriter().write(json);
 		
 		
 		

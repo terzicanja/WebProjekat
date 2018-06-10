@@ -55,6 +55,7 @@ public class RatingServlet extends HttpServlet {
 					status = "liked";
 				}else if(rating != null) {
 					if(rating.isLikeDislike()) {
+						RatingDAO.deleteVideoRating(rating);
 						status = "unrated";
 					} else {
 //						status = "dislajkovano";
@@ -153,6 +154,7 @@ public class RatingServlet extends HttpServlet {
 				status = "disliked";
 			}else if(rating != null) {
 				if(!rating.isLikeDislike()) {
+					RatingDAO.deleteVideoRating(rating);
 					status = "unrated";
 				} else {
 //					status = "dislajkovano";

@@ -17,7 +17,7 @@ public class RatingDAO {
 		ResultSet rset = null;
 		int likes = 0;
 		try {
-			String query = "SELECT COUNT(*) AS likes FROM videoRatings WHERE liked = true AND rated_video = ?";
+			String query = "SELECT COUNT(*) AS likes FROM videoratings WHERE liked = true AND rated_video = ?";
 			pstmt = conn.prepareStatement(query);
 //			pstmt.setString(1, liked);
 			pstmt.setInt(1, videoId);
@@ -52,7 +52,7 @@ public class RatingDAO {
 		ResultSet rset = null;
 		int likes = 0;
 		try {
-			String query = "SELECT COUNT(*) AS likes FROM videoRatings WHERE liked = false AND rated_video = ?";
+			String query = "SELECT COUNT(*) AS likes FROM videoratings WHERE liked = false AND rated_video = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, videoId);
 			rset = pstmt.executeQuery();
@@ -86,7 +86,7 @@ public class RatingDAO {
 		ResultSet rset = null;
 		
 		try {
-			String query = "SELECT * FROM videoRatings WHERE rated_video = ? AND who_rated = ?";
+			String query = "SELECT * FROM videoratings WHERE rated_video = ? AND who_rated = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, videoId);
 			pstmt.setString(2, username);
@@ -127,7 +127,7 @@ public class RatingDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String query = "INSERT INTO videoRatings (liked, rated_time, who_rated, rated_video) VALUES (?, '2013-12-12', ?, ?)";
+			String query = "INSERT INTO videoratings (liked, rated_time, who_rated, rated_video) VALUES (?, '2013-12-12', ?, ?)";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, rating.isLikeDislike());
 			pstmt.setString(2, rating.getWhoLiked().getUsername());
@@ -153,10 +153,35 @@ public class RatingDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String query = "UPDATE videoRatings SET liked = ? WHERE id = ?";
+			String query = "UPDATE videoratings SET liked = ? WHERE id = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, rating.isLikeDislike());
 			pstmt.setInt(2, rating.getId());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	
+	public static boolean deleteVideoRating(Rating rating) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "DELETE FROM videoratings WHERE who_rated = ? AND rated_video = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, rating.getWhoLiked().getUsername());
+			pstmt.setInt(2, rating.getLikedVideo().getId());
 			
 			return pstmt.executeUpdate() == 1;
 		} catch (Exception e) {
@@ -180,13 +205,14 @@ public class RatingDAO {
 	
 	
 	
+	
 	public static int getCountCommentLikes(int videoId) {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int likes = 0;
 		try {
-			String query = "SELECT COUNT(*) AS likes FROM commentRatings WHERE liked = true AND rated_comment = ?";
+			String query = "SELECT COUNT(*) AS likes FROM commentratings WHERE liked = true AND rated_comment = ?";
 			pstmt = conn.prepareStatement(query);
 //			pstmt.setString(1, liked);
 			pstmt.setInt(1, videoId);
@@ -221,7 +247,7 @@ public class RatingDAO {
 		ResultSet rset = null;
 		int likes = 0;
 		try {
-			String query = "SELECT COUNT(*) AS likes FROM commentRatings WHERE liked = false AND rated_comment = ?";
+			String query = "SELECT COUNT(*) AS likes FROM commentratings WHERE liked = false AND rated_comment = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, videoId);
 			rset = pstmt.executeQuery();
@@ -255,7 +281,7 @@ public class RatingDAO {
 		ResultSet rset = null;
 		
 		try {
-			String query = "SELECT * FROM commentRatings WHERE rated_comment = ? AND who_rated = ?";
+			String query = "SELECT * FROM commentratings WHERE rated_comment = ? AND who_rated = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, videoId);
 			pstmt.setString(2, username);
@@ -296,7 +322,7 @@ public class RatingDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String query = "INSERT INTO commentRatings (liked, rated_time, who_rated, rated_comment) VALUES (?, '2013-12-12', ?, ?)";
+			String query = "INSERT INTO commentratings (liked, rated_time, who_rated, rated_comment) VALUES (?, '2013-12-12', ?, ?)";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, rating.isLikeDislike());
 			pstmt.setString(2, rating.getWhoLiked().getUsername());
@@ -322,7 +348,7 @@ public class RatingDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String query = "UPDATE commentRatings SET liked = ? WHERE id = ?";
+			String query = "UPDATE commentratings SET liked = ? WHERE id = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, rating.isLikeDislike());
 			pstmt.setInt(2, rating.getId());

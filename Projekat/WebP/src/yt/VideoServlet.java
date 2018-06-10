@@ -35,6 +35,8 @@ public class VideoServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		System.out.println("id parametar jee: " + id);
 		String status = "unrated";
+		String videoStatus = "";
+		Video video = new Video();
 		
 		if(loggedInUser != null) {
 			Rating rating = RatingDAO.getUserVideoLikes(id, loggedInUser.getUsername());
@@ -50,17 +52,71 @@ public class VideoServlet extends HttpServlet {
 		} else {
 			status = "cannotLike";
 		}
+		
+//		if(VideoDAO.getVideo(id).isDeleted() || VideoDAO.getVideo(id).isBlocked()) {
+//			if(loggedInUser == null || !loggedInUser.getRole().toString().equals("ADMIN") || !loggedInUser.getUsername().equals(VideoDAO.getVideo(id).getOwner().getUsername())) {
+//				videoStatus = "cantSeeVideo";
+//			}else if(loggedInUser.getRole().toString().equals("ADMIN") || loggedInUser.getUsername().equals(VideoDAO.getVideo(id).getOwner().getUsername())) {
+//				video = VideoDAO.getVideo(id);
+//				video.setViews(video.getViews() + 1);
+//				VideoDAO.update(video);
+//			}
+//		}else {
+//			video = VideoDAO.getVideo(id);
+//			video.setViews(video.getViews() + 1);
+//			VideoDAO.update(video);
+//		}
+		
+		if(loggedInUser != null && (loggedInUser.getRole().toString().equals("ADMIN") || loggedInUser.getUsername().equals(VideoDAO.getVideo(id).getOwner().getUsername()))) {
+			video = VideoDAO.getVideo(id);
+			video.setViews(video.getViews() + 1);
+			VideoDAO.update(video);
+		}else {
+			if(VideoDAO.getVideo(id).isDeleted() || VideoDAO.getVideo(id).isBlocked()) {
+				video = null;
+				videoStatus = "cantSeeVideo";
+			}else {
+				video = VideoDAO.getVideo(id);
+				video.setViews(video.getViews() + 1);
+				VideoDAO.update(video);
+			}
+		}
+		
+//		if(loggedInUser == null || !loggedInUser.getRole().toString().equals("ADMIN") || !loggedInUser.getUsername().equals(VideoDAO.getVideo(id).getOwner().getUsername())) {
+//			if(VideoDAO.getVideo(id).isDeleted() || VideoDAO.getVideo(id).isBlocked()) {
+//				videoStatus = "cantSeeVideo";
+//			}else {
+//				video = VideoDAO.getVideo(id);
+//				video.setViews(video.getViews() + 1);
+//				VideoDAO.update(video);
+//			}
+//		}else {
+//			video = VideoDAO.getVideo(id);
+//			video.setViews(video.getViews() + 1);
+//			VideoDAO.update(video);
+//		}
+		
+		System.out.println("video je: "+video);
 
-		Video video = VideoDAO.getVideo(id);
-		video.setViews(video.getViews() + 1);
-		VideoDAO.update(video);
+//		Video video = VideoDAO.getVideo(id);
+//		video.setViews(video.getViews() + 1);
+//		VideoDAO.update(video);
 		int videoLikes = RatingDAO.getCountVideoLikes(id);
 		int videoDislikes = RatingDAO.getCountVideoDislikes(id);
-		ArrayList<Comment> comments = CommentDAO.getAll(id);
+		
+		String commentsAllowed = "";
+		ArrayList<Comment> comments = new ArrayList<>();
+		if(video.isCommentsAllowed()) {
+			comments = CommentDAO.getAll(id);
+			commentsAllowed = "yes";
+		}else {
+			commentsAllowed = "no";
+		}
 
 		Map<String, Object> data = new HashMap<>();
 		data.put("video", video);
 		data.put("status", status);
+		data.put("commentsAllowed", commentsAllowed);
 		data.put("videoLikes", videoLikes);
 		data.put("videoDislikes", videoDislikes);
 		data.put("comments", comments);
