@@ -17,6 +17,11 @@ $(document).ready(function(){
 		console.log('ovo je dodavanje');
 		$('.admin').css('display', 'none');
 		$('#addbtn').on('click', function(event){
+			var v = $('input[name=visi]:checked');
+			var c = $('input[name=comments]:checked');
+			var r = $('input[name=rating]:checked');
+			var b = $('input[name=blocked]:checked');
+			var d = $('input[name=deleted]:checked');
 			var url = urlInput.val();
 			var img = imgInput.val();
 			var name = nameInput.val();

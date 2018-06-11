@@ -21,7 +21,7 @@ public class Video {
 	private int views;
 	private int likes;
 	private int dislikes;
-	private Date date;
+	private String date;
 	private User owner;
 	
 	public Video() {
@@ -31,7 +31,7 @@ public class Video {
 	
 	public Video(int id, String videoURL, String videoImg, String name, String description, Visibility visibility,
 			boolean commentsAllowed, boolean blocked, boolean ratingAllowed, boolean deleted, int views, int likes,
-			int dislikes, Date date, User owner) {
+			int dislikes, String date, User owner) {
 		super();
 		this.id = id;
 		this.videoURL = videoURL;
@@ -127,10 +127,10 @@ public class Video {
 	public void setDislikes(int dislikes) {
 		this.dislikes = dislikes;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public User getOwner() {

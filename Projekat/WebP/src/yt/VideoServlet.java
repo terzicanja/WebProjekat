@@ -1,7 +1,9 @@
 package yt;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,11 +35,13 @@ public class VideoServlet extends HttpServlet {
 //			loggedInUser.setVideoLikes(new LikeDAO().getAllVideoLikes(loggedInUser));
 
 		int id = Integer.parseInt(request.getParameter("id"));
+		String sort = request.getParameter("sort");
 		System.out.println("id parametar jee: " + id);
 		String status = "unrated";
 		String videoStatus = "";
 		String ratingStatus = "";
 		Video video = new Video();
+		ArrayList<Comment> comments = new ArrayList<>();
 		
 		if(VideoDAO.getVideo(id).isRatingAllowed()) {
 			ratingStatus = "moze";
@@ -58,6 +62,18 @@ public class VideoServlet extends HttpServlet {
 		}else {
 			ratingStatus = "neMozee";
 		}
+		
+		String commentsAllowed = "";
+		
+		
+		
+		
+//		if(video != null && video.isCommentsAllowed()) {
+//			comments = CommentDAO.getAll(id);
+//			commentsAllowed = "yes";
+//		}else {
+//			commentsAllowed = "no";
+//		}
 		
 		
 //		if(VideoDAO.getVideo(id).isDeleted() || VideoDAO.getVideo(id).isBlocked()) {
@@ -106,6 +122,33 @@ public class VideoServlet extends HttpServlet {
 //			VideoDAO.update(video);
 //		}
 		
+		
+		
+		
+		if(sort.equals("none")) {
+//			comments = VideoDAO.getAll();
+//			ArrayList<Comment> comments = new ArrayList<>();
+			if(video != null && video.isCommentsAllowed()) {
+				comments = CommentDAO.getAll(id);
+				commentsAllowed = "yes";
+				System.out.println("ovo su komentari koje treba odma da ispise"+comments);
+			}else {
+				commentsAllowed = "no";
+			}
+		}else if(sort.equals("mostPopular")) {
+			comments = CommentDAO.getAllSorted(id, "dislikesNumber desc");
+		}else if(sort.equals("leastPopular")) {
+			comments = CommentDAO.getAllSorted(id, "likesNumber asc");
+		}else if(sort.equals("newest")) {
+			comments = CommentDAO.getAllSorted(id, "comment_date desc");
+		}else if(sort.equals("oldest")) {
+			comments = CommentDAO.getAllSorted(id, "comment_date asc");
+		}
+		
+		
+		
+		
+		
 		System.out.println("video je: "+video);
 
 //		Video video = VideoDAO.getVideo(id);
@@ -114,14 +157,7 @@ public class VideoServlet extends HttpServlet {
 		int videoLikes = RatingDAO.getCountVideoLikes(id);
 		int videoDislikes = RatingDAO.getCountVideoDislikes(id);
 		
-		String commentsAllowed = "";
-		ArrayList<Comment> comments = new ArrayList<>();
-		if(video != null && video.isCommentsAllowed()) {
-			comments = CommentDAO.getAll(id);
-			commentsAllowed = "yes";
-		}else {
-			commentsAllowed = "no";
-		}
+		
 
 		Map<String, Object> data = new HashMap<>();
 		data.put("video", video);
@@ -177,6 +213,10 @@ public class VideoServlet extends HttpServlet {
 				v.setVideoImg(img);
 				v.setName(name);
 				v.setDescription(description);
+				Date dt = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String currentTime = sdf.format(dt);
+				v.setDate(currentTime);
 //				v.setVisibility(visi);
 				v.setCommentsAllowed(comments);
 				v.setRatingAllowed(rating);

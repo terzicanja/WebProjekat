@@ -6,7 +6,7 @@ public class Comment {
 	
 	private int id;
 	private String content;
-	private Date date;
+	private String date;
 	private User author;
 	private Video video;
 	private int likesNumber;
@@ -17,7 +17,7 @@ public class Comment {
 		
 	}
 	
-	public Comment(int id, String content, Date date, User author, Video video, int likesNumber, int dislikesNumber, boolean deleted) {
+	public Comment(int id, String content, String date, User author, Video video, int likesNumber, int dislikesNumber, boolean deleted) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -41,10 +41,10 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public User getAuthor() {

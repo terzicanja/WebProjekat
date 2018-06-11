@@ -119,9 +119,20 @@
 			</div>
 			</span>
 			<div class="comments">
+			
+				
 				<div class="addComment">
 					<textarea id="addContent" maxlength="100"></textarea>
 					<input type="submit" value="Post" id="postComment">
+				</div>
+				<div class="dropdown">
+					<button onclick="myFunction()" id="sort" class="dropbtn">Sort</button>
+					<div id="myDropdown" class="dropdown-content">
+						<a href="#sort" id="mostPopular">Most popular</a> 
+						<a href="#sort" id="leastPopular">Least popular</a> 
+						<a href="#sort" id="newest">Newest</a>
+						<a href="#sort" id="oldest">Oldest</a>
+					</div>
 				</div>
 
 				<form id="komPoStr">
@@ -133,6 +144,7 @@
 						<option value="100">100</option>
 					</select>
 				</form>
+				<div id="comm">
 				<div class="komentar">
 					<a href="profile.html" id="user"><b>username</b></a>
 					<div id="dislikeRating">8</div>
@@ -142,6 +154,7 @@
 					<div class="comment">komenatr every time you leave a comment, a kitten happily purrs itself to sleep.  Let us know what you like, or even love, in the comments below.  We want to hear every time you leave a comment, a kitten happily purrs itself to sleep.  Let us know what you like, or even love, in the comments below.  We want to hear every time you leave a comment, a kitten happily purrs itself to sleep.  Let us know what you like, or even love, in the comments below.  We want to hear </div>
 					<!--<button id="like"><i class="material-icons">thumb_up</i></button>-->
 					<span id="dateComm">10.02.2016.</span>
+				</div>
 				</div>
 				<div id="pagination">
   					<a href="#pagination" class="active">1</a>
@@ -158,6 +171,26 @@
 	<footer>
 		<p>Created by Anja Terzic</p>
 	</footer>
+	<script type="text/javascript">
+		function myFunction() {
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
+
+		window.onclick = function(event) {
+			if (!event.target.matches('.dropbtn')) {
+
+				var dropdowns = document
+						.getElementsByClassName("dropdown-content");
+				var i;
+				for (i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
+		}
+	</script>
 	<script type="text/javascript">
     	
 	var tag = document.createElement('script');
@@ -238,6 +271,9 @@
 	}
 
 	brKomentara(1);
+	
+	
+	
 /*
 	function komentari(k){
 		console.log('kkkkk' + k);

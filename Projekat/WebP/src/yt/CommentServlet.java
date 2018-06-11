@@ -1,7 +1,9 @@
 package yt;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +50,10 @@ public class CommentServlet extends HttpServlet {
 					String content = request.getParameter("content");
 					Comment comment = new Comment();
 					comment.setContent(content);
+					Date dt = new Date();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String currentTime = sdf.format(dt);
+					comment.setDate(currentTime);
 					comment.setAuthor(loggedInUser);
 					comment.setVideo(video);
 					CommentDAO.addComment(comment);

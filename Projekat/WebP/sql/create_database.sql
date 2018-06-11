@@ -106,7 +106,7 @@ INSERT INTO videos (name, videoURL, videoImg, description, visibility, user_id, 
 	('public', 'https://www.youtube.com/embed/A7eb1DHZ9GQ', 'https://i.ytimg.com/vi/R3unPcJDbCc/mqdefault.jpg', '', 'PUBLIC', 'e', 0),
     ('video blokiranog korisnika', 'https://www.youtube.com/embed/xTlNMmZKwpA', 'hhttps://i.ytimg.com/vi/54Scxs8u1gk/maxresdefault.jpg', '', 'PUBLIC', 'blok', 0),
     ('video obrisanog korisnika', 'https://www.youtube.com/embed/_BcYBFC6zfY', 'https://i.ytimg.com/vi/0lqN_v5ljlA/maxresdefault.jpg', '', 'PUBLIC', 'del', 0),
-	('deleted', 'https://www.youtube.com/embed/2XiYUYcpsT4', 'http://backgroundcheckall.com/wp-content/uploads/2017/12/triangles-background-2.jpg', '', 'PUBLIC', 'g', 1);
+	('deleted', 'https://www.youtube.com/embed/bi6rKIYYA20', 'http://backgroundcheckall.com/wp-content/uploads/2017/12/triangles-background-2.jpg', '', 'PUBLIC', 'g', 1);
 
 
 INSERT INTO comments (content, author, videoId) VALUES ('komentar 1', 'f', 2);
@@ -145,13 +145,13 @@ CREATE TABLE subs(
 );
 
 
-INSERT INTO subs(subscriber, subsribed_to)VALUES('admin1', 'c');
-INSERT INTO subs(subscriber, subsribed_to)VALUES('admin2', 'c');
-INSERT INTO subs(subscriber, subsribed_to)VALUES('f', 'c');
-INSERT INTO subs(subscriber, subsribed_to)VALUES('c', 'admin1');
-INSERT INTO subs(subscriber, subsribed_to)VALUES('f', 'admin1');
-INSERT INTO subs(subscriber, subsribed_to)VALUES('c', 'f');
-INSERT INTO subs(subscriber, subsribed_to)VALUES('admin1', 'f');
+#INSERT INTO subs(subscriber, subsribed_to)VALUES('admin1', 'c');
+#INSERT INTO subs(subscriber, subsribed_to)VALUES('admin2', 'c');
+#INSERT INTO subs(subscriber, subsribed_to)VALUES('f', 'c');
+#INSERT INTO subs(subscriber, subsribed_to)VALUES('c', 'admin1');
+#INSERT INTO subs(subscriber, subsribed_to)VALUES('f', 'admin1');
+#INSERT INTO subs(subscriber, subsribed_to)VALUES('c', 'f');
+#INSERT INTO subs(subscriber, subsribed_to)VALUES('admin1', 'f');
 
 
 

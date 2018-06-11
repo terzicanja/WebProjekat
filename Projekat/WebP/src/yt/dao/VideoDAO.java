@@ -39,7 +39,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 //				User user = 
@@ -93,7 +93,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 				
@@ -147,7 +147,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 //				User user = 
@@ -202,7 +202,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 //				User user = 
@@ -258,7 +258,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 //				User user = 
@@ -313,7 +313,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 //				User user = 
@@ -368,7 +368,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 //				User user = 
@@ -493,7 +493,7 @@ public class VideoDAO {
 				int views = rset.getInt("views");
 				int likes = rset.getInt("likes");
 				int dislikes = rset.getInt("dislikes");
-				Date dateCreated = rset.getDate("dateCreated");
+				String dateCreated = rset.getString("dateCreated");
 				String userId = rset.getString("user_id");
 				User user = UserDAO.get(userId);
 				

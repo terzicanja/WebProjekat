@@ -2,8 +2,27 @@ $(document).ready(function(){
 	var current;
 	var id = window.location.search.slice(1).split('&')[0].split('=')[1];
 	
+	$('#sort').on('click', function(){
+		console.log('izgleda da ne ulazi ovde uopste');
+		$("#myDropdown").toggle("show");
+	});
+
+	window.onclick = function(event) {
+		if (!event.target.matches('.dropbtn')) {
+
+			var dropdowns = document
+					.getElementsByClassName("dropdown-content");
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+				var openDropdown = dropdowns[i];
+				if (openDropdown.classList.contains('show')) {
+					openDropdown.classList.remove('show');
+				}
+			}
+		}
+	}
 	
-	$.get('VideoServlet', {'id': id}, function(data){
+	$.get('VideoServlet', {'id': id, 'sort': 'none'}, function(data){
 //		console.log(data.video);
 		if(data.videoStatus == 'cantSeeVideo'){
 			console.log('ne mozes videti video ajde radi pliz');
@@ -46,7 +65,7 @@ $(document).ready(function(){
 		
 		
 		for(c in data.comments){
-			$('#komPoStr').after('<div class="komentar" id="'+data.comments[c].id+'">'+
+			$('#comm').append('<div class="komentar" id="'+data.comments[c].id+'">'+
 					'<a href="profile.html?id='+data.comments[c].author.username+'" id="user'+data.comments[c].id+'"><b>'+data.comments[c].author.username+'</b></a>'+
 					'<div id="dislikeRating">'+data.comments[c].dislikesNumber+'</div>'+
 					'<a href="#" id="dislikeComment" class="'+data.comments[c].id+'"><i class="material-icons">thumb_down</i></a>'+
@@ -54,7 +73,7 @@ $(document).ready(function(){
 					'<div id="likeRating">'+data.comments[c].likesNumber+'</div><br>'+
 					'<div class="comment" id="content'+data.comments[c].id+'">'+data.comments[c].content+'</div>'+
 					'<!--<button id="like"><i class="material-icons">thumb_up</i></button>-->'+
-					'<span id="dateComm'+data.comments[c].id+'">10.02.2016.</span>'+
+					'<span id="dateComm'+data.comments[c].id+'">'+data.comments[c].date+'</span>'+
 					'<input type="button" id="editComment" name="'+data.comments[c].id+'" value="Edit">'+
 					'<input type="button" id="deleteComment" name="'+data.comments[c].id+'" value="Delete">'+
 					'<!--<button type="button" id="deleteComment" name="'+data.comments[c].id+'">delete</button>-->'+
@@ -308,7 +327,8 @@ $(document).ready(function(){
 				alert('ne mozete postaviti komentar');
 			}else{
 				$('#addContent').val('');
-				location.reload();
+				console.log('komentar je postavljen');
+//				location.reload();
 			}
 //			$('#addContent').val('');
 			
@@ -329,6 +349,35 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 		return false;
+	});
+	
+	
+	
+	$('#mostPopular, #leastPopular, #newest, #oldest').on('click', function(event){
+		var sort = $(this).attr('id');
+		console.log('sortiraj po: '+ sort);
+		
+		$('#comm').empty();
+		console.log('tu bi trebalo da obrise sve prethodne');
+		
+		$.get('VideoServlet', {'id': id, 'sort': sort}, function(data){
+			
+			for(c in data.comments){
+				$('#comm').append('<div class="komentar" id="'+data.comments[c].id+'">'+
+						'<a href="profile.html?id='+data.comments[c].author.username+'" id="user'+data.comments[c].id+'"><b>'+data.comments[c].author.username+'</b></a>'+
+						'<div id="dislikeRating">'+data.comments[c].dislikesNumber+'</div>'+
+						'<a href="#" id="dislikeComment" class="'+data.comments[c].id+'"><i class="material-icons">thumb_down</i></a>'+
+						'<a href="#" id="likeComment" class="'+data.comments[c].id+'"><i class="material-icons">thumb_up</i></a>'+
+						'<div id="likeRating">'+data.comments[c].likesNumber+'</div><br>'+
+						'<div class="comment" id="content'+data.comments[c].id+'">'+data.comments[c].content+'</div>'+
+						'<!--<button id="like"><i class="material-icons">thumb_up</i></button>-->'+
+						'<span id="dateComm'+data.comments[c].id+'">'+data.comments[c].date+'</span>'+
+						'<input type="button" id="editComment" name="'+data.comments[c].id+'" value="Edit">'+
+						'<input type="button" id="deleteComment" name="'+data.comments[c].id+'" value="Delete">'+
+						'<!--<button type="button" id="deleteComment" name="'+data.comments[c].id+'">delete</button>-->'+
+					'</div>');
+			}
+		});
 	});
 	
 	

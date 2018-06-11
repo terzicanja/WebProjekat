@@ -29,7 +29,54 @@ public class CommentDAO {
 			while (rset.next()) {
 				int id = rset.getInt("id");
 				String content = rset.getString("content");
-				Date date = rset.getDate("comment_date");
+				String date = rset.getString("comment_date");
+				String username = rset.getString("author");
+				User author = UserDAO.get(username);
+				Video video = VideoDAO.getVideo(videoId);
+				int likesNumber = rset.getInt("likesNumber");
+				int dislikesNumber = rset.getInt("dislikesNumber");
+				boolean deleted = rset.getBoolean("deleted");
+				
+				Comment comment = new Comment(id, content, date, author, video, likesNumber, dislikesNumber, deleted);
+				comments.add(comment);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return comments;
+	}
+	
+	
+	public static ArrayList<Comment> getAllSorted(int videoId, String sort){
+		Connection conn = ConnectionManager.getConnection();
+		ArrayList<Comment> comments = new ArrayList<Comment>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			String query = "SELECT * FROM comments WHERE videoId = ? AND deleted = ? ORDER BY " + sort;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, videoId);
+			pstmt.setBoolean(2, false);
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				int id = rset.getInt("id");
+				String content = rset.getString("content");
+				String date = rset.getString("comment_date");
 				String username = rset.getString("author");
 				User author = UserDAO.get(username);
 				Video video = VideoDAO.getVideo(videoId);
@@ -75,7 +122,7 @@ public class CommentDAO {
 			while (rset.next()) {
 //				int id = rset.getInt("id");
 				String content = rset.getString("content");
-				Date date = rset.getDate("comment_date");
+				String date = rset.getString("comment_date");
 				String username = rset.getString("author");
 				User author = UserDAO.get(username);
 				int videoId = rset.getInt("videoId");
@@ -110,11 +157,12 @@ public class CommentDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String query = "INSERT INTO comments (content, author, videoId) VALUES (?, ?, ?)";
+			String query = "INSERT INTO comments (content, author, videoId, comment_date) VALUES (?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, comment.getContent());
 			pstmt.setString(2, comment.getAuthor().getUsername());
 			pstmt.setInt(3, comment.getVideo().getId());
+			pstmt.setString(4, comment.getDate());
 			
 			return pstmt.executeUpdate() == 1;
 		} catch (Exception e) {
