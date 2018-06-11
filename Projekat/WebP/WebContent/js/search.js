@@ -20,17 +20,34 @@ $(document).ready(function(){
 		
 		
 		for(c in data.videos){
-			$('#searched').append('<div id="videoHome">'+
-					'<div id="zaThumb">'+
-					'<div class="thumbnailWrapper">'+
-						'<a href="video.html?id='+data.videos[c].id+'"><img src="'+data.videos[c].videoImg+'" id="thumbnail"></a>'+
+			if(data.loggedInUser == null || (data.loggedInUser.role != 'ADMIN')){
+				if(data.videos[c].visibility == 'PUBLIC' && data.videos[v].deleted == false && data.videos[v].owner.blocked == false && data.videos[v].owner.deleted == false){
+					$('#searched').append('<div id="videoHome">'+
+							'<div id="zaThumb">'+
+							'<div class="thumbnailWrapper">'+
+								'<a href="video.html?id='+data.videos[c].id+'"><img src="'+data.videos[c].videoImg+'" id="thumbnail"></a>'+
+							'</div>'+
+						'</div>'+
+						'<a href="video.html?id='+data.videos[c].id+'" id="naslovRecomm"><b>'+data.videos[c].name+'</b></a><br>'+
+						'<a href="profile.html?id='+data.videos[c].owner.username+'" id="userRecomm">'+data.videos[c].owner.username+'</a>'+
+						'<span id="viewsRecomm">'+data.videos[c].views+' views</span>'+
+						'<span id="dateRecomm">06.02.2018.</span>'+
+					'</div>');
+				}
+			}else if(data.loggedInUser.role == 'ADMIN'){
+				$('#searched').append('<div id="videoHome">'+
+						'<div id="zaThumb">'+
+						'<div class="thumbnailWrapper">'+
+							'<a href="video.html?id='+data.videos[c].id+'"><img src="'+data.videos[c].videoImg+'" id="thumbnail"></a>'+
+						'</div>'+
 					'</div>'+
-				'</div>'+
-				'<a href="video.html?id='+data.videos[c].id+'" id="naslovRecomm"><b>'+data.videos[c].name+'</b></a><br>'+
-				'<a href="profile.html?id='+data.videos[c].owner.username+'" id="userRecomm">'+data.videos[c].owner.username+'</a>'+
-				'<span id="viewsRecomm">'+data.videos[c].views+' views</span>'+
-				'<span id="dateRecomm">06.02.2018.</span>'+
-			'</div>');
+					'<a href="video.html?id='+data.videos[c].id+'" id="naslovRecomm"><b>'+data.videos[c].name+'</b></a><br>'+
+					'<a href="profile.html?id='+data.videos[c].owner.username+'" id="userRecomm">'+data.videos[c].owner.username+'</a>'+
+					'<span id="viewsRecomm">'+data.videos[c].views+' views</span>'+
+					'<span id="dateRecomm">06.02.2018.</span>'+
+				'</div>');
+			}
+			
 		}
 		
 	});

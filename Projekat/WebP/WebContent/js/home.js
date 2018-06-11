@@ -33,7 +33,9 @@ $(document).ready(function(){
 		for(u in data.topFive){
 			$('#top').append('<div id="osoba"><div id="korisnickoIme">'+
 					'<a href="profile.html?id=' + data.topFive[u].username + '">' + data.topFive[u].username + '</a></div>'+
-					'<div id="foloveri">'+ data.topFive[u].subsNumber +' followers</div><button id="zafoluj">Follow</button></div>');
+					'<div id="foloveri">'+ data.topFive[u].subsNumber +' followers</div>'+
+//					'<button id="zafoluj">Follow</button>'+
+					'</div>');
 		}
 	});
 	

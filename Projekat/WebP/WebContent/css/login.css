@@ -11,14 +11,14 @@
 	font-size: 2em;
 }
 
-#loginTable{
+#loginTable, #videoTable{
 	background-color: white;
 	margin: 50px auto;
 }
-#loginTable tr{
+#loginTable tr, #videoTable tr{
 	margin: 25px;
 }
-#loginTable tr td{
+#loginTable tr td, #videoTable tr td{
 	font-size: 1.5em;
 }
 .unos{

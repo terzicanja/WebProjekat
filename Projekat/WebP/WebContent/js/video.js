@@ -4,7 +4,20 @@ $(document).ready(function(){
 	
 	
 	$.get('VideoServlet', {'id': id}, function(data){
-		console.log(data.video);
+//		console.log(data.video);
+		if(data.videoStatus == 'cantSeeVideo'){
+			console.log('ne mozes videti video ajde radi pliz');
+			$('.container').empty();
+			$('.container').html("<p>This video has been blocked or deleted</p>");
+		}else if(data.videoStatus == 'privateVideo'){
+			$('.container').empty();
+			$('.container').html("<p>This video is private</p>");
+		}
+		
+		if(data.ratingStatus == 'neMozee'){
+			console.log('ne mozes da vidis rating');
+			$('#rejtovanje').remove();
+		}
 		console.log(data.comments);
 		$("#myVideo").attr('src', data.video.videoURL);
 		$("h1").text(data.video.name);
@@ -15,6 +28,8 @@ $(document).ready(function(){
 		$("#opisVidea").text(data.video.description);
 		$("#brojLajkova").text(data.videoLikes);
 		$("#brojDislajkova").text(data.videoDislikes);
+		
+		
 		
 		if(data.status == "liked"){
 			console.log("ulazi ovde lajkovi videoservlet");
@@ -143,20 +158,39 @@ $(document).ready(function(){
 		
 		
 		$('#addVideo').on('click', function(event){
-			window.location.replace('add.html?doing=add&id=0');
+			if(data.loggedInUser == null){
+				alert('morate se ulogovati');
+			}else{
+				window.location.replace('add.html?doing=add&id=0');
+			}
 		});
 		
 		
 		$('#editVideo').on('click', function(event){
-			window.location.replace('add.html?doing=edit&id='+id);
+			if(data.loggedInUser == null){
+				alert('ne mozete menjati ovaj video');
+			}else if(data.loggedInUser.role == 'ADMIN' || data.loggedInUser.username == data.video.owner.username){
+				window.location.replace('add.html?doing=edit&id='+id);
+			}else{
+				alert('ne mozete menjati ovaj video');
+			}
+			
 		});
 		
 		$('#deleteVideo').on('click', function(event){
 //			window.location.replace('add.html?doing=edit&id='+id);
 			
-			$.post('VideoServlet', {'id':id, 'doing':'delete', 'url':'url', 'name':'name', 'description':'description', 'visibility':'visibility', 'comments':'comments', 'rating':'rating'}, function(data){
-				
-			});
+			if(data.loggedInUser == null){
+				alert('ne mozete brisati ovaj video');
+			}else if(data.loggedInUser.role == 'ADMIN' || data.loggedInUser.username == data.video.owner.username){
+				$.post('VideoServlet', {'id':id, 'doing':'delete', 'url':'url', 'name':'name', 'description':'description', 'visibility':'visibility', 'comments':'comments', 'rating':'rating'}, function(data){
+					location.reload();
+				});
+			}else{
+				alert('ne mozete brisati ovaj video');
+			}
+			
+			
 		});
 		
 		
@@ -164,21 +198,22 @@ $(document).ready(function(){
 			var commentId = $(this).attr('class');
 			console.log('lajkovanje komentara ' + commentId);
 			$.get('RatingServlet', {'id': id, 'commentId': commentId, 'what': 'comment'}, function(data){
-//				$("#brojLajkova").text(data.numberOfLikes);
-//				$("#brojDislajkova").text(data.numberOfDislikes);
+				$("#likeRating").text(data.commentLikes);
+				$("#dislikeRating").text(data.commentDislikes);
 //				console.log(status);
 				
-				if(data.status == "cannotLike"){
+				if(data.commentStatus == "cannotLike"){
 					alert("u cant rate this comment");
 					return false;
 				}
 				
-				if(data.status == "liked"){
-					console.log("ulazi ovde lajkovi");
+				if(data.commentStatus == "commentLiked"){
+					console.log("ulazi ovde lajkovi komentaraaa");
 					$("#likeComment").css('color', 'green');
 					$("#dislikeComment").css('color', '#D3D3D3');
-				} else if (data.status == "unrated"){
+				} else if (data.commentStatus == "unrated"){
 					$("#dislikeComment").css('color', '#D3D3D3');
+					$("#likeComment").css('color', '#D3D3D3');
 				}
 			});
 			event.preventDefault();
@@ -188,28 +223,27 @@ $(document).ready(function(){
 		$('#dislikeComment').on('click', function(event){
 			var commentId = $(this).attr('class');
 			$.post('RatingServlet', {'id': id, 'commentId': commentId, 'what': 'comment'}, function(data){
-//				$("#brojDislajkova").text(data.numberOfDislikes);
-//				$("#brojLajkova").text(data.numberOfLikes);
+				$("#dislikeRating").text(data.commentDislikes);
+				$("#likeRating").text(data.commentLikes);
 //				console.log(status);
 				
-				if(data.status == "cannotLike"){
+				if(data.commentStatus == "cannotLike"){
 					alert("u cant rate this comment");
 					return false;
 				}
 				
-				if(data.status == "disliked"){
+				if(data.commentStatus == "commentDisliked"){
 					console.log("ulazi ovde dissss");
 					$("#dislikeComment").css('color', 'red');
 					$("#likeComment").css('color', '#D3D3D3');
 				} else if (data.status == "unrated"){
 					$("#dislikeComment").css('color', '#D3D3D3');
+					$("#likeComment").css('color', '#D3D3D3');
 				}
 			});
 			event.preventDefault();
 			return false;
 		});
-		
-		
 	});
 	
 	

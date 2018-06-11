@@ -29,17 +29,53 @@ public class SearchServlet extends HttpServlet {
 		String user = request.getParameter("user");
 		String comment = request.getParameter("comment");
 		System.out.println("parametar jee: " + search);
+		ArrayList<Video> searchVideos = new ArrayList<>();
 		
 		String srchTitle = "";
 		String srchUser = "";
 		String srchComment = "";
 		
 		if(title.equals("true")) {
+			ArrayList<Video> byName = VideoDAO.searchVideosByName(search);
+//			searchVideos.addAll(byName);
+//			for (Video x : byName){
+//				   if (!searchVideos.contains(x))
+//				      searchVideos.add(x);
+//				}
+			
+			
+			ArrayList<Video> twoCopy = new ArrayList<>(byName);
+			twoCopy.removeAll(searchVideos);
+			searchVideos.addAll(twoCopy);
+			
+			
 			srchTitle = "name LIKE ?";
 		}
 		if(user.equals("true")) {
+			ArrayList<Video> byOwner = VideoDAO.searchVideosByOwner(search);
+//			searchVideos.addAll(byOwner);
+//			for(Video x : byOwner) {
+//				if(!searchVideos.contains(x)) {
+//					searchVideos.add(x);
+//				}
+//			}
+			
+			
+			ArrayList<Video> twoCopy = new ArrayList<>(byOwner);
+			twoCopy.removeAll(searchVideos);
+			searchVideos.addAll(twoCopy);
+			
+			
 			srchUser = "user_id LIKE ?";
 			if(title.equals("true") && user.equals("true")) {
+				searchVideos.clear();
+				ArrayList<Video> byName = VideoDAO.searchVideosByName(search);
+				searchVideos.addAll(byName);
+				
+				ArrayList<Video> twoCopyy = new ArrayList<>(byOwner);
+				twoCopyy.removeAll(searchVideos);
+				searchVideos.addAll(twoCopyy);
+				
 				srchUser = "OR user_id LIKE ?";
 			}
 		}
@@ -48,10 +84,11 @@ public class SearchServlet extends HttpServlet {
 		}
 		
 //		ArrayList<Video> videos = VideoDAO.searchVideos(search);
-		ArrayList<Video> videos = VideoDAO.searchVideos(search, srchTitle, srchUser, srchComment);
+//		ArrayList<Video> videos = VideoDAO.searchVideos(search, srchTitle, srchUser, srchComment);
 		
 		Map<String, Object> data = new HashMap<>();
-		data.put("videos", videos);
+//		data.put("videos", videos);
+		data.put("videos", searchVideos);
 //		data.put("comments", comments);
 		data.put("loggedInUser", loggedInUser);
 

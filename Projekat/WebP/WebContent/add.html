@@ -60,17 +60,25 @@
                     </tr>
                     <tr>
                         <td>visibility</td>
-                        <td><input type="radio" name="visi" value="Public" checked> Public 
-                        <input type="radio" name="visi" value="Private"> Private
-                        <input type="radio" name="visi" value="Unlisted"> Unlisted</td>
+                        <td><input type="radio" name="visi" id="public" value="Public" checked> Public 
+                        <input type="radio" name="visi" id="private" value="Private"> Private
+                        <input type="radio" name="visi" id="unlisted" value="Unlisted"> Unlisted</td>
                     </tr>
                     <tr>
                         <td>commentsAllowed</td>
-                        <td><input type="radio" name="comments" value="true" checked> Yes <input type="radio" name="comments" value="false"> No</td>
+                        <td><input type="radio" id="cyes" name="comments" value="true" checked> Yes <input type="radio" id="cno" name="comments" value="false"> No</td>
                     </tr>
                     <tr>
                         <td>ratingAllowed</td>
-                        <td><input type="radio" name="rating" value="true" checked> Yes <input type="radio" name="rating" value="false"> No</td>
+                        <td><input type="radio" id="ryes" name="rating" value="true" checked> Yes <input type="radio" id="rno" name="rating" value="false"> No</td>
+                    </tr>
+                    <tr class="admin">
+                        <td>Blocked: </td>
+                        <td><input type="radio" id="byes" name="blocked" value="true" checked> Yes <input type="radio" id="bno" name="blocked" value="false"> No</td>
+                    </tr>
+                    <tr class="admin">
+                        <td>Deleted: </td>
+                        <td><input type="radio" id="dyes" name="deleted" value="true" checked> Yes <input type="radio" id="dno" name="deleted" value="false"> No</td>
                     </tr>
                     <tr>
                         <td colspan="2"><button type="submit" id="addbtn">Add video</button></td>

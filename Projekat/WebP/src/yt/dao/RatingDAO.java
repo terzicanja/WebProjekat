@@ -368,5 +368,30 @@ public class RatingDAO {
 	}
 	
 	
+	public static boolean deleteCommentRating(Rating rating) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "DELETE FROM commentratings WHERE who_rated = ? AND rated_comment = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, rating.getWhoLiked().getUsername());
+			pstmt.setInt(2, rating.getLikedComment().getId());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (Exception e) {
+			System.out.println("Greska u SQL upitu!");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException ex1) {
+				ex1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	
 
 }
